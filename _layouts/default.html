@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}Cristhian Moreno</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  {% seo %}
+</head>
+<body>
+
+  <!-- MENÚ FIJO GLOBAL -->
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        Crist<span class="green-char">h</span>ian Moreno
+      </a>
+
+      <nav>
+        <a href="/about">Sobre Mí</a>
+        <a href="/articles">Artículos</a>
+        <a href="/guides">Guías</a>
+        
+        <!-- BUSCADOR FUNCIONAL -->
+        <div class="search-wrapper">
+          <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar por tema..." class="search-input" aria-label="Buscar artículos">
+            <span class="search-icon">🔍</span>
+          </div>
+          <!-- Contenedor desplegable para resultados -->
+          <div id="search-results-container"></div>
+        </div>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO DINÁMICO -->
+  <main>
+    {{ content }}
+  </main>
+
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} Crist<span class="green-char">h</span>ian Moreno.</p>
+    <p style="font-size: 0.8rem; opacity: 0.7;">Derecho, Política & Sociedad.</p>
+  </footer>
+
+  <!-- HERRAMIENTAS FLOTANTES -->
+  <button id="theme-toggle" aria-label="Cambiar modo oscuro">
+    <span class="icon-sun">☀</span>
+    <span class="icon-moon">☾</span>
+  </button>
+
+  <!-- MODAL DE AUTOR REDISEÑADO -->
+  <div id="collab-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="close-modal-btn" aria-label="Cerrar">&times;</button>
+      
+      <div class="modal-body">
+        <div class="modal-visual">
+          <div class="modal-img-wrapper">
+            <img id="modal-img" src="" alt="Foto del autor">
+          </div>
+        </div>
+        <div class="modal-details">
+          <span class="modal-label">Perfil del Columnista</span>
+          <h2 id="modal-name" class="modal-title"></h2>
+          <div class="modal-divider"></div>
+          <p id="modal-bio" class="modal-text"></p>
+          <div class="modal-actions">
+            <a id="modal-link" href="#" target="_blank" class="modal-btn">
+              Ver perfil completo &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Dark Mode */
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    if (localStorage.getItem('theme') === 'dark') body.setAttribute('data-theme', 'dark');
+    toggleBtn.addEventListener('click', () => {
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme'); localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    /* --- LÓGICA MODAL AUTORES --- */
+    const authorsData = {
+      {% for author in site.data.authors %}
+        "{{ author[0] }}": {
+          "name": "{{ author[1].name }}",
+          "bio": "{{ author[1].bio | replace: '"', '\"' | strip_newlines }}",
+          "avatar": "{{ author[1].avatar }}",
+          "web": "{{ author[1].web }}"
+        },
+      {% endfor %}
+    };
+
+    const modalOverlay = document.getElementById('collab-modal');
+    const closeModalBtn = document.querySelector('.close-modal-btn');
+    const modalImg = document.getElementById('modal-img');
+    const modalName = document.getElementById('modal-name');
+    const modalBio = document.getElementById('modal-bio');
+    const modalLink = document.getElementById('modal-link');
+
+    window.openAuthorModal = function(key) {
+      const data = authorsData[key];
+      if(data) {
+        modalImg.src = data.avatar || '/assets/img/default-avatar.png';
+        modalName.innerText = data.name;
+        modalBio.innerText = data.bio;
+        
+        if (data.web) {
+          modalLink.href = data.web;
+          modalLink.style.display = 'inline-block';
+        } else {
+          modalLink.style.display = 'none';
+        }
+
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+      }
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = ''; 
+    }
+
+    closeModalBtn.onclick = closeModal;
+    window.onclick = (e) => { if (e.target == modalOverlay) closeModal(); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape" && modalOverlay.classList.contains('active')) closeModal();
+    });
+
+     /* --- LÓGICA BUSCADOR ROBUSTA --- */
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results-container');
+    let postsData = [];
+
+    // 1. Cargar datos usando la ruta relativa correcta de Jekyll
+    fetch("{{ '/assets/search.json' | relative_url }}")
+      .then(response => {
+        if (!response.ok) throw new Error("No se pudo cargar search.json");
+        return response.json();
+      })
+      .then(data => {
+        postsData = data;
+        console.log("Buscador cargado: " + data.length + " entradas.");
+      })
+      .catch(err => console.error("Error cargando buscador:", err));
+
+    // 2. Evento de Búsqueda
+    searchInput.addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase().trim();
+      resultsContainer.innerHTML = '';
+
+      if (query.length < 2) {
+        resultsContainer.style.display = 'none';
+        return;
+      }
+
+      // Filtrar
+      const filteredPosts = postsData.filter(post => {
+        // Validamos que los campos existan antes de buscar para evitar errores
+        const titleMatch = post.title && post.title.toLowerCase().includes(query);
+        const catMatch   = post.category && post.category.toLowerCase().includes(query);
+        const tagMatch   = post.tags && post.tags.toLowerCase().includes(query);
+        
+        return titleMatch || catMatch || tagMatch;
+      });
+
+      // Mostrar Resultados
+      if (filteredPosts.length > 0) {
+        resultsContainer.style.display = 'block';
+        
+        filteredPosts.forEach(post => {
+          const a = document.createElement('a');
+          a.classList.add('search-result-item');
+          a.href = post.url;
+          
+          // Decidir qué meta-dato mostrar (Tag o Categoría)
+          let metaInfo = post.date;
+          if(post.tags && post.tags.toLowerCase().includes(query)) {
+             metaInfo = `<span class="search-tag">#${post.tags}</span>`;
+          } else if (post.category) {
+             metaInfo = `<span>${post.category}</span> • ${post.date}`;
+          }
+
+          a.innerHTML = `
+            <span class="search-result-title">${post.title}</span>
+            <div class="search-meta">${metaInfo}</div>
+          `;
+          resultsContainer.appendChild(a);
+        });
+      } else {
+        resultsContainer.style.display = 'block';
+        resultsContainer.innerHTML = '<div style="padding:15px; text-align:center; opacity:0.6; font-size:0.9rem;">No hay resultados para "' + query + '"</div>';
+      }
+    });
+
+    // Cerrar buscador al hacer clic fuera
+    document.addEventListener('click', function(e) {
+      if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+        resultsContainer.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

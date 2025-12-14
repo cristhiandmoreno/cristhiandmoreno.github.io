@@ -1,0 +1,218 @@
+---
+layout: default
+---
+{% assign author = site.data.authors[page.author] %}
+
+<!-- Fuente de lectura -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+<article class="post-container">
+
+  <!-- CABECERA DEL ARTÍCULO -->
+  <header class="post-header">
+    
+    <!-- ETIQUETAS INTELIGENTES -->
+    <!-- Al hacer clic, activan el buscador global -->
+    <div class="post-tags-container">
+      {% if page.categories.size > 0 %}
+        <!-- Categoría Principal -->
+        <button onclick="triggerSearch('{{ page.categories | first }}')" class="tag-pill main-cat" style="border:none; cursor:pointer;">
+          {{ page.categories | first }}
+        </button>
+      {% endif %}
+      
+      {% if page.tags %}
+        {% for tag in page.tags %}
+          <!-- Tags Secundarios -->
+          <button onclick="triggerSearch('{{ tag }}')" class="tag-pill topic-tag" style="background:transparent; cursor:pointer;">
+            #{{ tag }}
+          </button>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <h1 class="post-title">{{ page.title }}</h1>
+
+    {% if page.description %}
+      <p class="post-lead">{{ page.description }}</p>
+    {% endif %}
+
+    <!-- Meta Datos -->
+    <div class="post-meta-line">
+      <div class="meta-author" onclick="openAuthorModal('{{ page.author }}')">
+        {% if author.avatar %}
+          <img src="{{ author.avatar }}" alt="{{ author.name }}">
+        {% endif %}
+        <div>
+          <span class="byline">Por <strong>{{ author.name }}</strong></span>
+          <time class="pub-date">{{ page.date | date: "%d de %B de %Y" }}</time>
+        </div>
+      </div>
+      
+      <div class="meta-actions">
+        <span title="Tiempo de lectura estimado">⏱️ {{ content | number_of_words | divided_by: 180 }} min</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- IMAGEN -->
+  {% if page.image %}
+    <figure class="post-featured-image">
+      <img src="{{ page.image }}" alt="{{ page.alt }}">
+      {% if page.caption %}
+        <figcaption>{{ page.caption }}</figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+  <!-- CONTENIDO -->
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <hr class="post-divider">
+
+  <!-- CAJA AUTOR -->
+  <div class="author-box" onclick="openAuthorModal('{{ page.author }}')">
+    <div class="author-visual">
+      {% if author.avatar %}
+        <img src="{{ author.avatar }}" alt="{{ author.name }}">
+      {% else %}
+        <div style="width:100%; height:100%; background:var(--border-color);"></div>
+      {% endif %}
+    </div>
+
+    <div class="author-info">
+      <span class="author-label">Autor</span>
+      <h3 class="author-name">{{ author.name }}</h3>
+      <p class="author-bio">{{ author.bio | truncate: 140 }}</p>
+      <div class="author-cta">
+        <span>Ver perfil completo y más entradas</span>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+  </div>
+
+ <!-- SECCIÓN COMPARTIR REDES -->
+  <div class="share-section">
+    <span class="share-label">¿Te gustó esta entrada? Compártela.</span>
+    
+    <div class="share-buttons">
+      
+      <!-- 1. WhatsApp -->
+      <a href="https://api.whatsapp.com/send?text={{ page.title | url_encode }}%20{{ page.url | absolute_url }}" target="_blank" class="share-btn" aria-label="Compartir en WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.305-5.235c0-5.438 4.411-9.856 9.884-9.856.82 0 1.6.154 2.34.454.82.33 1.55.82 2.16 1.44a9.81 9.81 0 012.87 7.02c0 5.44-4.41 9.86-9.58 9.86-.01 0-.01 0 0 0m6.72-17.75c-1.95-1.2-4.23-1.84-6.55-1.84-6.62 0-12 5.37-12 11.98 0 2.35.69 4.56 1.9 6.47L.18 24l7.35-1.92c1.8.84 3.82 1.28 5.92 1.28h.01c6.62 0 12-5.37 12-11.98 0-3.32-1.35-6.3-3.71-8.52"/></svg>
+      </a>
+
+      <!-- 2. Facebook -->
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url }}" target="_blank" class="share-btn" aria-label="Compartir en Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+
+      <!-- 3. Twitter / X -->
+      <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url }}" target="_blank" class="share-btn" aria-label="Compartir en X">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      
+      <!-- 4. Email -->
+      <a href="mailto:?subject=Lectura recomendada: {{ page.title | url_encode }}&body=Hola, te comparto este artículo de Cristhian Moreno que me pareció interesante: {{ page.url | absolute_url }}" class="share-btn" aria-label="Enviar por Correo">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+
+      <!-- 5. Copiar Enlace (Para Instagram) -->
+      <button id="copy-link-btn" class="share-btn" aria-label="Copiar Enlace" onclick="copyToClipboard('{{ page.url | absolute_url }}')">
+        <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+        <span class="share-tooltip">¡Enlace copiado!</span>
+      </button>
+
+      <!-- 6. Botón Nativo (Solo Móvil) -->
+      <button id="native-share-btn" class="share-btn" aria-label="Compartir (Más opciones)">
+        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- DISCUSIÓN -->
+  {% if page.discusion %}
+  <section class="comments-section">
+    <h3 class="comments-title">Discusión Abierta</h3>
+    <div class="giscus"></div>
+  </section>
+  <script src="https://giscus.app/client.js"
+        data-repo="TU_USUARIO_GITHUB/TU_REPO"
+        data-repo-id="TU_REPO_ID"
+        data-category="Announcements"
+        data-category-id="TU_CATEGORY_ID"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light" 
+        data-lang="es"
+        crossorigin="anonymous"
+        async>
+  </script>
+  <script>
+    function updateGiscusTheme() {
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe) return;
+      iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
+    }
+    const observer = new MutationObserver(updateGiscusTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  </script>
+  {% endif %}
+
+</article>
+
+<!-- SCRIPT DE CONEXIÓN (POST -> BUSCADOR) -->
+<script>
+  // Esta función toma el tag, sube al header, lo escribe y dispara el evento 'input'
+  function triggerSearch(term) {
+    const searchInput = document.getElementById('search-input');
+    if(searchInput) {
+      // 1. Scroll suave hacia arriba para ver el buscador
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // 2. Esperar un momento a que llegue arriba y llenar el buscador
+      setTimeout(() => {
+        searchInput.value = term;
+        searchInput.focus();
+        // 3. Disparar manualmente el evento de búsqueda
+        const event = new Event('input', { bubbles: true });
+        searchInput.dispatchEvent(event);
+      }, 500);
+    }
+  }
+
+
+  // Script de Compartir
+
+   // 1. Lógica Copiar Enlace
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-link-btn');
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 2000); // Quitar tooltip a los 2s
+      });
+    }
+
+    // 2. Lógica Compartir Nativo (Mobile)
+    const nativeBtn = document.getElementById('native-share-btn');
+    if (navigator.share) {
+      nativeBtn.style.display = 'flex'; // Mostrar solo si el navegador lo soporta
+      nativeBtn.addEventListener('click', () => {
+        navigator.share({
+          title: '{{ page.title | escape }}',
+          text: 'Te comparto este artículo interesante de Cristhian Moreno',
+          url: '{{ page.url | absolute_url }}'
+        }).catch(console.error);
+      });
+    } else {
+      nativeBtn.style.display = 'none'; // Ocultar en PC antiguos
+    }
+</script>

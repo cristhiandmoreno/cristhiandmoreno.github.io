@@ -1,0 +1,203 @@
+---
+layout: default
+title: Inicio
+---
+
+<!-- 1. SECCIÓN PORTADA (NOTICIAS) -->
+<section class="news-hero">
+  <div class="newspaper-grid">
+    
+    {% assign cristhian_posts = site.posts | where: "author", "cristhian" %}
+    {% assign featured_post = cristhian_posts.first %}
+    
+    <!-- IZQUIERDA: Destacado Principal -->
+    {% if featured_post %}
+    <a href="{{ featured_post.url }}" class="main-article">
+      <div>
+        <span class="tag-destacado" style="background:var(--text-color); color:var(--bg-color); padding:4px 10px; text-transform:uppercase; font-size:0.8rem; letter-spacing:1px;">
+          Editorial Destacado
+        </span>
+        
+        <h1 style="font-size: 3.5rem; margin: 20px 0; line-height: 1.1;">
+          {{ featured_post.title }}
+        </h1>
+        <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 20px;">
+          {{ featured_post.excerpt | strip_html | truncatewords: 30 }}
+        </p>
+          
+        {% if featured_post.image %}
+          <div class="main-img-container">
+            <img src="{{ featured_post.image }}" alt="Imagen destacada" loading="eager">
+          </div>
+        {% endif %}
+      </div>
+    </a>
+    {% else %}
+    <div class="main-article">
+      <h2>Próximamente: La voz de Cristhian.</h2>
+    </div>
+    {% endif %}
+
+    <!-- DERECHA: Lo último (Side Articles) -->
+    <div class="side-articles">
+      <h2 class="sidebar-title">Recientes</h2>
+      
+      {% for post in site.posts limit:5 %}
+        {% assign p_author = site.data.authors[post.author] %}
+        <a href="{{ post.url }}" class="mini-post">
+          {% if post.image %}
+            <img src="{{ post.image }}" alt="{{ post.title }}" class="mini-post-img" loading="lazy">
+          {% else %}
+            <div class="mini-post-placeholder"><span>✒️</span></div>
+          {% endif %}
+
+          <div style="display:flex; flex-direction:column; justify-content:center;">
+            <h3 class="mini-post-title">{{ post.title }}</h3>
+            <small class="mini-post-meta">
+              {{ p_author.name | default: "Invitado" }} • {{ post.date | date: "%d/%m" }}
+            </small>
+          </div>
+        </a>
+      {% endfor %}
+      
+      <a href="/articles" class="archive-link">Ver archivo completo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SECCIÓN COLABORADORES (Mejorada) -->
+<section class="collab-section" style="text-align: center;">
+  
+  <div style="max-width: 1400px; margin: 0 auto 30px auto; padding: 0 20px; text-align: left;">
+    <h3 style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--green-h); display: inline-block; color: var(--bg-color);">
+      Voces Colaboradoras
+    </h3>
+  </div>
+
+  <!-- El Loop Infinito (Marquee) -->
+  <div id="marquee-view" class="marquee-container">
+    <div class="marquee-wrapper">
+      {% for i in (1..6) %} 
+        {% for author in site.data.authors %}
+          {% unless author[0] == 'cristhian' %}
+            <div class="collab-item" onclick="openAuthorModal('{{ author[0] }}')">
+              {{ author[1].name }}
+            </div>
+            <span style="font-size: 1.5rem; opacity: 0.5;">✦</span>
+          {% endunless %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Botón para ver todos -->
+  <button id="btn-toggle-collabs" class="btn-toggle-collabs">
+    Mostrar todos los colaboradores
+  </button>
+
+  <!-- GRID DE TARJETAS (Oculto inicialmente) -->
+  <div id="all-collabs-grid">
+    {% for author in site.data.authors %}
+      {% unless author[0] == 'cristhian' %}
+        <div class="collab-card-mini" onclick="openAuthorModal('{{ author[0] }}')">
+          <img src="{{ author[1].avatar | default: '/assets/img/default-avatar.png' }}" class="collab-card-img" alt="{{ author[1].name }}">
+          <div style="text-align:left;">
+            <h4 style="margin:0; font-size:1.1rem; text-transform:uppercase;">{{ author[1].name }}</h4>
+            <span style="font-size:0.8rem; color:var(--green-h); font-weight:bold;">Leer perfil &rarr;</span>
+          </div>
+        </div>
+      {% endunless %}
+    {% endfor %}
+  </div>
+
+</section>
+
+<!-- 3. SECCIÓN SOBRE MÍ -->
+<section id="about" style="background: var(--bg-alt); display: flex; align-items: center;">
+  <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 20px;">
+    
+    <!-- Foto -->
+    <div style="position: relative;">
+      <img src="assets/img/authors/cristhian1.jpg" alt="Cristhian Moreno" style="width: 100%; max-height: 500px; object-fit: cover; border: 1px solid var(--border-color); filter: grayscale(100%); transition: filter 0.5s;">
+      <div style="position: absolute; bottom: -20px; right: -10px; background: var(--green-h); color: #fff; padding: 8px 20px; font-weight: bold; font-size: 0.9rem;">
+        Estudiante
+      </div>
+    </div>
+
+    <!-- Texto -->
+    <div>
+      <h2 style="font-size: 3.5rem; line-height: 1; margin-bottom: 30px;">
+        Crist<span class="green-char">h</span>ian Moreno.
+      </h2>
+      <p style="font-size: 1.25rem; margin-bottom: 20px; line-height: 1.6;">
+        Si el derecho existe, pero "como un conjunto de normas que regulan la sociedad" creo que por más que exista es execrable. El derecho solo es legítimo cuando puede responder a las necesidades reales.
+      </p>
+      
+      <div style="margin-top: 30px;">
+        <a href="/about" style="display: inline-block; padding: 12px 30px; background: var(--text-color); color: var(--bg-color); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: background 0.3s;">
+          Biografía Completa
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 4. SECCIÓN EVENTOS -->
+<section id="events" style="max-width: 1400px; margin: 0 auto; border-bottom: none;">
+  <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; margin-bottom: 40px; gap: 20px;">
+    <h2 style="margin:0; font-size: 3rem; line-height:1;">Agenda Pública</h2>
+    <a href="#" style="text-decoration:underline;">Sincronizar Calendario</a>
+  </div>
+  
+  <div class="events-grid">
+    {% for event in site.data.events %}
+      <div class="event-card">
+        <div class="event-date">{{ event.date | date: "%d" }}</div>
+        <div>
+          <span style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; font-weight: bold;">
+            {{ event.date | date: "%B %Y" }}
+          </span>
+          <h3 style="font-size: 1.8rem; margin: 10px 0; line-height: 1.1;">{{ event.title }}</h3>
+          <p style="opacity: 0.8;">📍 {{ event.location }}</p>
+        </div>
+        <a href="{{ event.link }}" class="event-btn">
+          Inscribirse
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Script para la interacción de Colaboradores -->
+<script>
+  document.getElementById('btn-toggle-collabs').addEventListener('click', function() {
+    const marquee = document.getElementById('marquee-view');
+    const grid = document.getElementById('all-collabs-grid');
+    const btn = this;
+
+    // Si el grid está oculto (estado inicial o none)
+    if (grid.style.display === 'none' || grid.style.display === '') {
+      // Ocultar marquee
+      marquee.style.display = 'none';
+      
+      // Mostrar grid con animación
+      grid.style.display = 'grid';
+      // Pequeño timeout para permitir que el navegador procese el cambio de display antes de la opacidad
+      setTimeout(() => { grid.style.opacity = '1'; }, 10);
+      
+      btn.innerText = "Volver a vista de carrusel";
+      btn.style.borderColor = "var(--green-h)";
+    } else {
+      // Volver al estado original
+      grid.style.opacity = '0';
+      setTimeout(() => {
+        grid.style.display = 'none';
+        marquee.style.display = 'block';
+      }, 500); // Esperar a que termine la transición de opacidad
+      
+      btn.innerText = "Mostrar todos los colaboradores";
+      btn.style.borderColor = "var(--bg-color)";
+    }
+  });
+</script>

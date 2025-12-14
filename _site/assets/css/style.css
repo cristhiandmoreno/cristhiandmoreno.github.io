@@ -1,0 +1,1462 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,700;1,400&display=swap");
+/* --- VARIABLES & TEMAS --- */
+:root {
+  --font-main: "Vollkorn", serif;
+  --bg-color: #F9F6F0;
+  --bg-alt: #EBE6DC;
+  --text-color: #111111;
+  --green-h: #00751F;
+  --border-color: #111111;
+  --btn-bg: #111111;
+  --btn-text: #F9F6F0;
+}
+
+[data-theme=dark] {
+  --bg-color: #121212;
+  --bg-alt: #1E1E1E;
+  --text-color: #e0e0e0;
+  --green-h: #00751F;
+  --border-color: #444;
+  --btn-bg: #e0e0e0;
+  --btn-text: #121212;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.6;
+  padding-top: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- 1. HEADER & MENÚ --- */
+header {
+  position: relative; /* No flota, empuja el contenido */
+  width: 100%;
+  padding: 30px 40px;
+  background: var(--bg-color);
+  border-bottom: 2px solid var(--border-color);
+  z-index: 10;
+}
+
+.header-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  letter-spacing: -1px;
+}
+
+.green-char {
+  color: var(--green-h) !important;
+  font-style: normal;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+nav a {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+  border-bottom: 2px solid var(--green-h);
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--text-color);
+  padding-bottom: 2px;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-family: var(--font-main);
+  width: 100px;
+  font-size: 0.9rem;
+  transition: width 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  width: 180px;
+}
+
+/* --- 2. ESTILOS DE ARTÍCULOS (POST) IMPLECABLES --- */
+.post-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.post-header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.post-category {
+  background: var(--text-color);
+  color: var(--bg-color);
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.post-title {
+  font-size: 3.5rem; /* Grande y elegante en PC */
+  line-height: 1.1;
+  margin: 0 0 25px 0;
+  font-weight: 700;
+}
+
+.post-meta {
+  font-size: 1.1rem;
+  color: grey;
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.post-content {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+/* Caja de Autor al pie del post */
+.author-box {
+  background: var(--bg-alt);
+  border: 1px solid var(--border-color);
+  padding: 30px;
+  margin: 60px 0 0 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.author-box:hover {
+  transform: translateY(-3px);
+}
+
+.author-box img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* --- 3. SECCIÓN PORTADA (HOME) --- */
+.news-hero {
+  height: calc(100vh - 100px);
+  min-height: 600px;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.newspaper-grid {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: 40px;
+  height: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.main-article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--border-color);
+  padding-right: 40px;
+  height: 100%;
+}
+
+.main-article h1 {
+  font-size: 3rem;
+  margin: 15px 0;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.main-img-container {
+  width: 100%;
+  height: 40%;
+  max-height: 350px;
+  margin-top: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: var(--bg-alt);
+}
+
+.main-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.main-article:hover .main-img-container img {
+  transform: scale(1.03);
+}
+
+.side-articles {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding-left: 10px;
+}
+
+.mini-post {
+  display: flex;
+  gap: 15px;
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+  min-height: 120px;
+}
+
+.mini-post-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+/* --- ESTILOS BARRA LATERAL (RECIENTES) --- */
+/* Encabezado de la sección */
+.sidebar-title {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+/* La tarjeta clicable */
+a.mini-post {
+  display: grid;
+  grid-template-columns: 90px 1fr; /* Imagen fija | Texto flexible */
+  gap: 15px;
+  padding: 15px 10px; /* Un poco de aire interno */
+  border-bottom: 1px solid var(--border-color);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease-in-out;
+  border-left: 3px solid transparent; /* Preparamos el borde para el hover */
+}
+
+/* El último elemento no lleva línea abajo */
+a.mini-post:last-of-type {
+  border-bottom: none;
+}
+
+/* Animación Hover: Desplazamiento + Borde Verde */
+a.mini-post:hover {
+  background: var(--bg-alt);
+  transform: translateX(5px); /* Movimiento sutil a la derecha */
+  border-left: 3px solid var(--green-h); /* Marca de la casa */
+  cursor: pointer;
+}
+
+/* Imagen */
+.mini-post-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  /* border: 1px solid var(--border-color); Quitamos borde a la img para limpieza visual */
+  filter: grayscale(100%); /* Efecto sobrio inicial */
+  transition: filter 0.2s;
+}
+
+/* Al hacer hover, la imagen recupera color */
+a.mini-post:hover .mini-post-img {
+  filter: grayscale(0%);
+}
+
+/* Contenedor del ícono por defecto (si no hay foto) */
+.mini-post-placeholder {
+  width: 90px;
+  height: 90px;
+  background: var(--bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+/* Tipografía */
+.mini-post-title {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  font-weight: 700;
+  font-family: var(--font-main);
+}
+
+.mini-post-meta {
+  color: grey;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+/* Botón "Ver archivo" */
+.archive-link {
+  padding: 15px 0;
+  text-align: center;
+  font-weight: bold;
+  display: block;
+  margin-top: auto;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+.archive-link:hover {
+  color: var(--green-h);
+  text-decoration: underline;
+}
+
+/* Estilos Globales de Sección */
+section {
+  padding: 60px 40px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* --- 4. COLABORADORES & EVENTOS --- */
+.collab-section {
+  background: var(--text-color);
+  color: var(--bg-color);
+  padding: 40px 0;
+  overflow: hidden;
+  border-bottom: none;
+}
+
+.marquee-wrapper {
+  display: flex;
+  align-items: center;
+  animation: scroll 30s linear infinite;
+}
+
+.marquee-wrapper:hover {
+  animation-play-state: paused;
+}
+
+.collab-label {
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-right: 20px;
+  letter-spacing: 2px;
+  background: var(--green-h);
+  color: var(--text-color);
+  padding: 5px 15px;
+  text-transform: uppercase;
+  transform: skew(-10deg);
+}
+
+.collab-item {
+  font-size: 2.5rem;
+  margin: 0 40px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.collab-item:hover {
+  color: var(--green-h);
+  text-decoration: underline;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.event-card {
+  border: 1px solid var(--border-color);
+  padding: 30px;
+  position: relative;
+  transition: all 0.3s ease;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.event-card:hover {
+  background: var(--text-color);
+  color: var(--bg-color);
+  transform: translateY(-5px);
+  box-shadow: 10px 10px 0px var(--green-h);
+}
+
+.event-date {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.2;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transition: opacity 0.3s;
+}
+
+.event-card:hover .event-date {
+  opacity: 1;
+  color: var(--green-h);
+}
+
+.event-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 1px solid currentColor;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+/* Footer & Components */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+#theme-toggle {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+/* --- MODAL DE AUTOR REDISEÑADO --- */
+/* Fondo Oscuro con Blur */
+.modal-overlay {
+  display: none; /* Se activa con clase .active */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px); /* Efecto cristal */
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* Tarjeta Principal */
+.modal-card {
+  background: var(--bg-color);
+  width: 100%;
+  max-width: 750px; /* Ancho cómodo para lectura */
+  position: relative;
+  border: 2px solid var(--border-color);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow: hidden;
+}
+
+.modal-overlay.active .modal-card {
+  transform: translateY(0); /* Animación de subida */
+}
+
+/* Botón Cerrar (X) */
+.close-modal-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-color);
+  z-index: 10;
+  transition: color 0.2s;
+}
+
+.close-modal-btn:hover {
+  color: var(--green-h);
+}
+
+/* Cuerpo interno (Grid layout) */
+.modal-body {
+  display: grid;
+  grid-template-columns: 250px 1fr; /* Foto fija | Info flexible */
+  min-height: 300px;
+}
+
+/* --- Columna Visual (Izquierda) --- */
+.modal-visual {
+  background: var(--bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border-color);
+  padding: 20px;
+}
+
+.modal-img-wrapper {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--bg-color);
+  box-shadow: 0 0 0 2px var(--green-h); /* Doble borde elegante */
+}
+
+.modal-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Columna Detalles (Derecha) --- */
+.modal-details {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.modal-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--green-h);
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.modal-title {
+  font-family: var(--font-main); /* Vollkorn */
+  font-size: 2.5rem;
+  margin: 0;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+.modal-divider {
+  width: 50px;
+  height: 3px;
+  background: var(--border-color);
+  margin: 15px 0 20px 0;
+}
+
+.modal-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+/* Botón de acción */
+.modal-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background: var(--text-color);
+  color: var(--bg-color);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  border: 1px solid var(--text-color);
+  transition: all 0.3s;
+  text-decoration: none;
+  align-self: flex-start; /* Evita que ocupe todo el ancho */
+}
+
+.modal-btn:hover {
+  background: var(--bg-color);
+  color: var(--text-color);
+  box-shadow: 4px 4px 0 var(--green-h);
+}
+
+/* --- RESPONSIVE (Móvil) --- */
+@media (max-width: 768px) {
+  .modal-body {
+    grid-template-columns: 1fr; /* Una sola columna */
+    text-align: center;
+  }
+  .modal-visual {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 30px 20px;
+  }
+  .modal-details {
+    padding: 30px 20px;
+    align-items: center; /* Centrar todo */
+  }
+  .modal-title {
+    font-size: 2rem;
+  }
+  .modal-btn {
+    align-self: center;
+  }
+  .close-modal-btn {
+    color: var(--text-color); /* Asegurar visibilidad sobre fondo gris */
+    background: rgba(255, 255, 255, 0.5); /* Fondo semitransparente para ver la X */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+}
+/* --- 5. RESPONSIVE (MÓVIL) --- */
+@media (max-width: 900px) {
+  /* Header se apila */
+  header {
+    padding: 20px;
+    height: auto;
+  }
+  .header-inner {
+    flex-direction: column;
+    gap: 20px;
+  }
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  /* Post responsive */
+  .post-container {
+    padding: 30px 20px;
+  }
+  .post-title {
+    font-size: 2.2rem;
+  } /* Reduce título gigante */
+  .post-meta {
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.9rem;
+  }
+  .post-content {
+    text-align: left;
+  } /* En móvil justificar a veces se ve mal */
+  /* Reset portada */
+  .news-hero {
+    height: auto;
+    padding: 20px;
+  }
+  .newspaper-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .main-article {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding-right: 0;
+    padding-bottom: 30px;
+  }
+  .main-img-container {
+    height: 250px;
+  }
+}
+/* --- REDISEÑO BLOG (Estilo La República) --- */
+/* Tipografía de lectura optimizada */
+.post-content {
+  font-family: "Merriweather", serif; /* Fuente serif muy legible */
+  font-size: 1.25rem; /* Un poco más grande para comodidad */
+  line-height: 1.9; /* Interlineado generoso */
+  color: var(--text-color);
+  margin-top: 30px;
+}
+
+/* Letra capital (Drop cap) estilo periódico */
+.post-content > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-main); /* Vollkorn */
+  font-size: 4.5rem;
+  line-height: 0.8;
+  font-weight: 700;
+  margin-right: 15px;
+  color: var(--green-h);
+}
+
+.post-content h2, .post-content h3 {
+  font-family: var(--font-main); /* Títulos internos mantienen Vollkorn */
+  margin-top: 2em;
+  color: var(--text-color);
+}
+
+.post-lead {
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: grey;
+  margin: 10px 0 25px 0;
+  font-style: italic;
+  border-left: 4px solid var(--green-h);
+  padding-left: 15px;
+}
+
+/* Header del Post más limpio */
+.post-header {
+  text-align: left; /* Alineación a la izquierda estilo moderno */
+  border-bottom: none;
+  margin-bottom: 20px;
+}
+
+/* Sistema de Etiquetas */
+.post-tags-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.tag-pill {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.tag-pill.main-cat {
+  background-color: var(--green-h);
+  color: #fff;
+}
+
+.tag-pill.topic-tag {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.tag-pill.topic-tag:hover {
+  background: var(--text-color);
+  color: var(--bg-color);
+}
+
+/* Meta Data Line (Autor + Fecha) */
+.post-meta-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0;
+  margin-top: 20px;
+}
+
+.meta-author {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.meta-author img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--green-h);
+}
+
+.byline {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.pub-date {
+  font-size: 0.85rem;
+  color: grey;
+  text-transform: uppercase;
+}
+
+/* Imagen Destacada */
+.post-featured-image {
+  margin: 30px 0;
+  width: 100%;
+}
+
+.post-featured-image img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.post-featured-image figcaption {
+  font-size: 0.85rem;
+  color: grey;
+  margin-top: 8px;
+  text-align: right;
+  font-style: italic;
+}
+
+.post-divider {
+  border: 0;
+  height: 1px;
+  background: var(--border-color);
+  margin: 50px 0;
+  opacity: 0.3;
+}
+
+/* Nueva Caja de Autor (Signature Box) */
+.author-signature-box {
+  background: var(--bg-color);
+  border: 2px solid var(--border-color);
+  padding: 30px;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.author-signature-box:hover {
+  box-shadow: 8px 8px 0 var(--green-h);
+  transform: translateY(-2px);
+}
+
+.signature-avatar img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%; /* Opcional: 0% para cuadrado */
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+
+.author-signature-box:hover .signature-avatar img {
+  filter: grayscale(0%);
+}
+
+.signature-content {
+  flex: 1;
+}
+
+.signature-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--green-h);
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.signature-name {
+  font-family: var(--font-main);
+  font-size: 2rem;
+  margin: 5px 0 10px 0;
+  line-height: 1;
+}
+
+.signature-bio {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.signature-cta {
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* Comentarios Giscus */
+.comments-section {
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 4px solid var(--text-color);
+}
+
+.comments-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Ajustes Responsive */
+@media (max-width: 768px) {
+  .post-title {
+    font-size: 2.5rem;
+  }
+  .author-signature-box {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  .signature-avatar img {
+    width: 80px;
+    height: 80px;
+  }
+  .post-content {
+    font-size: 1.15rem;
+  }
+}
+/* --- CAJA DE AUTOR (Estilo Tarjeta Editorial) --- */
+.author-box {
+  position: relative;
+  background: var(--bg-color); /* Fondo base */
+  border: 2px solid var(--border-color); /* Borde marcado */
+  padding: 0; /* Quitamos padding general para manejarlo por grid/flex */
+  margin: 60px 0 40px 0;
+  display: flex;
+  align-items: stretch; /* Estira los hijos para que ocupen misma altura */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden; /* Para contener la imagen */
+}
+
+/* Efecto Hover: Sombra sólida desplazada y movimiento */
+.author-box:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0px var(--green-h); /* La sombra es del color verde corporativo */
+}
+
+/* -- 1. Sección Visual (Izquierda) -- */
+.author-visual {
+  flex: 0 0 160px; /* Ancho fijo de 160px */
+  border-right: 2px solid var(--border-color);
+  overflow: hidden;
+  position: relative;
+}
+
+.author-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%); /* Empieza en Blanco y Negro (muy periodístico) */
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+/* Al hacer hover en la caja, la imagen cobra vida */
+.author-box:hover .author-visual img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* -- 2. Sección Info (Derecha) -- */
+.author-info {
+  flex: 1;
+  padding: 25px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Etiqueta pequeña arriba */
+.author-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--green-h);
+  font-weight: 900;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Nombre del autor */
+.author-name {
+  margin: 0 0 10px 0;
+  font-family: var(--font-main);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+/* Biografía */
+.author-bio {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin: 0 0 15px 0;
+  font-style: italic;
+}
+
+/* Llamada a la acción (Botón falso) */
+.author-cta {
+  margin-top: auto;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color);
+  transition: gap 0.2s;
+}
+
+.author-box:hover .author-cta .arrow {
+  transform: translateX(5px); /* Flechita se mueve */
+  color: var(--green-h);
+}
+
+/* --- RESPONSIVE (MÓVIL) --- */
+@media (max-width: 768px) {
+  .author-box {
+    flex-direction: column; /* Apilar verticalmente */
+    text-align: center;
+    border-width: 1px;
+  }
+  .author-box:hover {
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave en móvil */
+  }
+  .author-visual {
+    flex: none;
+    width: 100px; /* Círculo o cuadrado pequeño centrado */
+    height: 100px;
+    margin: 25px auto 0 auto; /* Centrar horizontalmente */
+    border-right: none;
+    border: 2px solid var(--green-h);
+    border-radius: 50%; /* En móvil se ve mejor redondo */
+  }
+  .author-info {
+    padding: 20px;
+    align-items: center; /* Centrar textos */
+  }
+  .author-name {
+    font-size: 1.6rem;
+  }
+  .author-bio {
+    font-size: 0.95rem;
+  }
+  .author-cta {
+    justify-content: center;
+    border-top: 1px solid var(--border-color); /* Separador sutil */
+    width: 100%;
+    padding-top: 15px;
+  }
+}
+/* --- MEJORAS DEL BUSCADOR (Task 2) --- */
+.search-wrapper {
+  position: relative; /* Para posicionar los resultados debajo */
+}
+
+/* Resultados desplegables */
+#search-results-container {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 300px;
+  background: var(--bg-color);
+  border: 2px solid var(--border-color);
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 100000;
+  display: none; /* Se activa con JS */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.search-result-item {
+  display: block;
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.2s;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background: var(--bg-alt);
+}
+
+.search-result-title {
+  font-weight: bold;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.search-meta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: grey;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-tag {
+  color: var(--green-h);
+  font-weight: bold;
+}
+
+/* --- MEJORAS ANIMACIÓN INDEX (Task 1) --- */
+/* Modificación de la clase .main-article para que sea interactiva */
+a.main-article {
+  text-decoration: none; /* Quitar subrayado del link bloque */
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--border-color);
+  padding-right: 40px;
+  padding-left: 20px; /* Un poco de aire extra */
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+  cursor: pointer;
+}
+
+/* --- RESPONSIVE BUSCADOR (Móvil y Tablets) --- */
+@media (max-width: 900px) {
+  /* 1. Ajuste del contenedor del buscador en el menú */
+  .search-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px; /* Separarlo de los enlaces de navegación */
+  }
+  /* 2. El input crece para ser fácil de tocar */
+  .search-container {
+    width: 100%;
+    max-width: 400px; /* Que no se vea enorme en tablets */
+    justify-content: space-between;
+  }
+  .search-input {
+    width: 100%; /* Ocupa todo el espacio disponible */
+    font-size: 1rem; /* Letra más grande para evitar zoom en iPhone */
+    padding: 5px 0;
+  }
+  .search-input:focus {
+    width: 100%; /* Mantiene el ancho al escribir */
+  }
+  /* 3. RESULTADOS FLOTANTES EN MÓVIL (Clave para post.html) */
+  /* Usamos position: fixed para que flote sobre el texto del artículo sin empujarlo */
+  #search-results-container {
+    position: fixed;
+    top: 160px; /* Ajustar según la altura de tu header desplegado */
+    left: 50%;
+    transform: translateX(-50%); /* Centrar perfectamente */
+    width: 90%; /* Margen lateral de seguridad */
+    max-width: 400px;
+    max-height: 60vh; /* Máximo 60% de la altura de pantalla */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra fuerte para destacar sobre el texto */
+    border: 2px solid var(--border-color);
+  }
+}
+/* Animación Persuasiva y Sobria */
+/* Al hacer hover, se eleva y crea una sombra sólida (estilo brutalista suave) */
+a.main-article:hover {
+  transform: translateY(-5px);
+  background: var(--bg-alt); /* Cambio sutil de fondo */
+  box-shadow: 12px 12px 0px var(--green-h); /* Sombra sólida verde corporativa */
+  border-right: 1px solid transparent; /* Opcional: para limpiar bordes */
+}
+
+/* Ajuste responsive para la animación */
+@media (max-width: 900px) {
+  a.main-article {
+    border-right: none;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+/* --- MEJORAS RESPONSIVE INDEX (Revista Web) --- */
+/* 1. Hero Section (Noticias) Adaptable */
+@media (max-width: 900px) {
+  .news-hero {
+    height: auto !important; /* Quitar altura fija */
+    padding: 20px 15px;
+  }
+  .newspaper-grid {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 40px;
+  }
+  /* El artículo principal destaca arriba */
+  a.main-article {
+    border-right: none;
+    border-bottom: 2px solid var(--border-color);
+    padding-right: 0;
+    padding-bottom: 30px;
+    padding-left: 0; /* Reset */
+  }
+  a.main-article h1 {
+    font-size: 2.2rem;
+  }
+  .main-img-container {
+    height: 250px;
+  }
+  /* Lista lateral debajo */
+  .side-articles {
+    padding-left: 0;
+    height: auto;
+    overflow: visible;
+  }
+}
+/* 2. Sección Colaboradores (Nuevo Diseño) */
+.collab-section {
+  position: relative;
+  background: var(--text-color);
+  color: var(--bg-color);
+  padding: 60px 20px;
+  transition: all 0.5s ease;
+}
+
+/* El Marquee (Loop) */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-wrapper {
+  display: flex;
+  align-items: center;
+  /* Animación más lenta y suave */
+  animation: scroll 40s linear infinite;
+}
+
+/* Botón "Ver Todos" */
+.btn-toggle-collabs {
+  background: transparent;
+  color: var(--bg-color);
+  border: 1px solid var(--bg-color);
+  padding: 10px 25px;
+  font-family: var(--font-main);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-toggle-collabs:hover {
+  background: var(--green-h);
+  border-color: var(--green-h);
+  color: #fff;
+}
+
+/* GRID OCULTO DE COLABORADORES */
+#all-collabs-grid {
+  display: none; /* Oculto por defecto */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+  opacity: 0; /* Para animación de entrada */
+  transition: opacity 0.5s ease;
+}
+
+/* Tarjeta de Colaborador (Estilo Mini Author-Box) */
+.collab-card-mini {
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--bg-color); /* Borde sutil */
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.collab-card-mini:hover {
+  transform: translateY(-5px);
+  box-shadow: 5px 5px 0 var(--green-h); /* Sombra sólida verde */
+}
+
+.collab-card-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--green-h);
+}
+
+/* 3. Sección Sobre Mí (Responsive) */
+@media (max-width: 900px) {
+  #about > div { /* El grid interno */
+    grid-template-columns: 1fr !important;
+    gap: 40px;
+  }
+  #about img {
+    max-height: 300px; /* Reducir altura imagen */
+  }
+  #about h2 {
+    font-size: 2.5rem !important;
+  }
+}
+/* 4. Eventos Responsive */
+@media (max-width: 600px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* --- SECCIÓN COMPARTIR (SHARE) --- */
+.share-section {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: 40px;
+}
+
+.share-label {
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+  font-style: italic;
+  margin-bottom: 20px;
+  display: block;
+  color: grey;
+}
+
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  position: relative; /* Para el tooltip de copiado */
+}
+
+.share-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Efecto Hover: Verde corporativo */
+.share-btn:hover {
+  background: var(--green-h);
+  border-color: var(--green-h);
+  color: var(--bg-color); /* Icono blanco */
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Tooltip "Enlace Copiado" */
+.share-tooltip {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-color);
+  color: var(--bg-color);
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+
+.share-btn.copied .share-tooltip {
+  opacity: 1;
+  top: -50px; /* Pequeño salto hacia arriba */
+}
+
+/* Ocultar botón nativo en PC si se desea, aunque JS lo controla mejor */
+#native-share-btn {
+  display: none;
+}
+
+/*# sourceMappingURL=style.css.map */

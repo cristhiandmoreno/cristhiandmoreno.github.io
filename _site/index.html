@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio | Cristhian Moreno</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Inicio | Cristhian Moreno</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Inicio" />
+<meta name="author" content="Cristhian Moreno" />
+<meta property="og:locale" content="es" />
+<meta name="description" content="Estudiante de Derecho, Representante Estudiantil y Blog Político." />
+<meta property="og:description" content="Estudiante de Derecho, Representante Estudiantil y Blog Político." />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="Cristhian Moreno" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Inicio" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Cristhian Moreno"},"description":"Estudiante de Derecho, Representante Estudiantil y Blog Político.","headline":"Inicio","name":"Cristhian Moreno","url":"http://localhost:4000/"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+<body>
+
+  <!-- MENÚ FIJO GLOBAL -->
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        Crist<span class="green-char">h</span>ian Moreno
+      </a>
+
+      <nav>
+        <a href="/about">Sobre Mí</a>
+        <a href="/articles">Artículos</a>
+        <a href="/guides">Guías</a>
+        
+        <!-- BUSCADOR FUNCIONAL -->
+        <div class="search-wrapper">
+          <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar por tema..." class="search-input" aria-label="Buscar artículos">
+            <span class="search-icon">🔍</span>
+          </div>
+          <!-- Contenedor desplegable para resultados -->
+          <div id="search-results-container"></div>
+        </div>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO DINÁMICO -->
+  <main>
+    <!-- 1. SECCIÓN PORTADA (NOTICIAS) -->
+<section class="news-hero">
+  <div class="newspaper-grid">
+    
+    
+    
+    
+    <!-- IZQUIERDA: Destacado Principal -->
+    
+    <a href="/opini%C3%B3n/un-breve-prolegomeno/" class="main-article">
+      <div>
+        <span class="tag-destacado" style="background:var(--text-color); color:var(--bg-color); padding:4px 10px; text-transform:uppercase; font-size:0.8rem; letter-spacing:1px;">
+          Editorial Destacado
+        </span>
+        
+        <h1 style="font-size: 3.5rem; margin: 20px 0; line-height: 1.1;">
+          Un breve prolegómeno
+        </h1>
+        <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 20px;">
+          Cuando pensé este proyecto, hace unos 10 meses, no contaba con todo el cambio de perspectivas e ideas que podían girar en torno a esta página. En principio, quería que...
+        </p>
+          
+        
+          <div class="main-img-container">
+            <img src="/assets/img/publicaciones/prolegomeno.jpg" alt="Imagen destacada" loading="eager">
+          </div>
+        
+      </div>
+    </a>
+    
+
+    <!-- DERECHA: Lo último (Side Articles) -->
+    <div class="side-articles">
+      <h2 class="sidebar-title">Recientes</h2>
+      
+      
+        
+        <a href="/opini%C3%B3n/un-breve-prolegomeno/" class="mini-post">
+          
+            <img src="/assets/img/publicaciones/prolegomeno.jpg" alt="Un breve prolegómeno" class="mini-post-img" loading="lazy">
+          
+
+          <div style="display:flex; flex-direction:column; justify-content:center;">
+            <h3 class="mini-post-title">Un breve prolegómeno</h3>
+            <small class="mini-post-meta">
+              Cristhian Moreno • 30/11
+            </small>
+          </div>
+        </a>
+      
+      
+      <a href="/articles" class="archive-link">Ver archivo completo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SECCIÓN COLABORADORES (Mejorada) -->
+<section class="collab-section" style="text-align: center;">
+  
+  <div style="max-width: 1400px; margin: 0 auto 30px auto; padding: 0 20px; text-align: left;">
+    <h3 style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--green-h); display: inline-block; color: var(--bg-color);">
+      Voces Colaboradoras
+    </h3>
+  </div>
+
+  <!-- El Loop Infinito (Marquee) -->
+  <div id="marquee-view" class="marquee-container">
+    <div class="marquee-wrapper">
+       
+        
+          
+        
+          
+            <div class="collab-item" onclick="openAuthorModal('profesor_x')">
+              Dr. Juan Pérez
+            </div>
+            <span style="font-size: 1.5rem; opacity: 0.5;">✦</span>
+          
+        
+       
+        
+          
+        
+          
+            <div class="collab-item" onclick="openAuthorModal('profesor_x')">
+              Dr. Juan Pérez
+            </div>
+            <span style="font-size: 1.5rem; opacity: 0.5;">✦</span>
+          
+        
+       
+        
+          
+        
+          
+            <div class="collab-item" onclick="openAuthorModal('profesor_x')">
+              Dr. Juan Pérez
+            </div>
+            <span style="font-size: 1.5rem; opacity: 0.5;">✦</span>
+          
+        
+       
+        
+          
+        
+          
+            <div class="collab-item" onclick="openAuthorModal('profesor_x')">
+              Dr. Juan Pérez
+            </div>
+            <span style="font-size: 1.5rem; opacity: 0.5;">✦</span>
+          
+        
+       
+        
+          
+        
+          
+            <div class="collab-item" onclick="openAuthorModal('profesor_x')">
+              Dr. Juan Pérez
+            </div>
+            <span style="font-size: 1.5rem; opacity: 0.5;">✦</span>
+          
+        
+       
+        
+          
+        
+          
+            <div class="collab-item" onclick="openAuthorModal('profesor_x')">
+              Dr. Juan Pérez
+            </div>
+            <span style="font-size: 1.5rem; opacity: 0.5;">✦</span>
+          
+        
+      
+    </div>
+  </div>
+
+  <!-- Botón para ver todos -->
+  <button id="btn-toggle-collabs" class="btn-toggle-collabs">
+    Mostrar todos los colaboradores
+  </button>
+
+  <!-- GRID DE TARJETAS (Oculto inicialmente) -->
+  <div id="all-collabs-grid">
+    
+      
+    
+      
+        <div class="collab-card-mini" onclick="openAuthorModal('profesor_x')">
+          <img src="/assets/img/authors/juan.jpg" class="collab-card-img" alt="Dr. Juan Pérez">
+          <div style="text-align:left;">
+            <h4 style="margin:0; font-size:1.1rem; text-transform:uppercase;">Dr. Juan Pérez</h4>
+            <span style="font-size:0.8rem; color:var(--green-h); font-weight:bold;">Leer perfil &rarr;</span>
+          </div>
+        </div>
+      
+    
+  </div>
+
+</section>
+
+<!-- 3. SECCIÓN SOBRE MÍ -->
+<section id="about" style="background: var(--bg-alt); display: flex; align-items: center;">
+  <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 20px;">
+    
+    <!-- Foto -->
+    <div style="position: relative;">
+      <img src="assets/img/authors/cristhian1.jpg" alt="Cristhian Moreno" style="width: 100%; max-height: 500px; object-fit: cover; border: 1px solid var(--border-color); filter: grayscale(100%); transition: filter 0.5s;">
+      <div style="position: absolute; bottom: -20px; right: -10px; background: var(--green-h); color: #fff; padding: 8px 20px; font-weight: bold; font-size: 0.9rem;">
+        Estudiante
+      </div>
+    </div>
+
+    <!-- Texto -->
+    <div>
+      <h2 style="font-size: 3.5rem; line-height: 1; margin-bottom: 30px;">
+        Crist<span class="green-char">h</span>ian Moreno.
+      </h2>
+      <p style="font-size: 1.25rem; margin-bottom: 20px; line-height: 1.6;">
+        Si el derecho existe, pero "como un conjunto de normas que regulan la sociedad" creo que por más que exista es execrable. El derecho solo es legítimo cuando puede responder a las necesidades reales.
+      </p>
+      
+      <div style="margin-top: 30px;">
+        <a href="/about" style="display: inline-block; padding: 12px 30px; background: var(--text-color); color: var(--bg-color); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: background 0.3s;">
+          Biografía Completa
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 4. SECCIÓN EVENTOS -->
+<section id="events" style="max-width: 1400px; margin: 0 auto; border-bottom: none;">
+  <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; margin-bottom: 40px; gap: 20px;">
+    <h2 style="margin:0; font-size: 3rem; line-height:1;">Agenda Pública</h2>
+    <a href="#" style="text-decoration:underline;">Sincronizar Calendario</a>
+  </div>
+  
+  <div class="events-grid">
+    
+      <div class="event-card">
+        <div class="event-date">25</div>
+        <div>
+          <span style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; font-weight: bold;">
+            November 2025
+          </span>
+          <h3 style="font-size: 1.8rem; margin: 10px 0; line-height: 1.1;">Asamblea</h3>
+          <p style="opacity: 0.8;">📍 Edificio E19</p>
+        </div>
+        <a href="#" class="event-btn">
+          Inscribirse
+        </a>
+      </div>
+    
+      <div class="event-card">
+        <div class="event-date">02</div>
+        <div>
+          <span style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; font-weight: bold;">
+            February 2025
+          </span>
+          <h3 style="font-size: 1.8rem; margin: 10px 0; line-height: 1.1;">Bienvenida estudiantes 2026-1</h3>
+          <p style="opacity: 0.8;">📍 Edificio D5</p>
+        </div>
+        <a href="#" class="event-btn">
+          Inscribirse
+        </a>
+      </div>
+    
+  </div>
+</section>
+
+<!-- Script para la interacción de Colaboradores -->
+<script>
+  document.getElementById('btn-toggle-collabs').addEventListener('click', function() {
+    const marquee = document.getElementById('marquee-view');
+    const grid = document.getElementById('all-collabs-grid');
+    const btn = this;
+
+    // Si el grid está oculto (estado inicial o none)
+    if (grid.style.display === 'none' || grid.style.display === '') {
+      // Ocultar marquee
+      marquee.style.display = 'none';
+      
+      // Mostrar grid con animación
+      grid.style.display = 'grid';
+      // Pequeño timeout para permitir que el navegador procese el cambio de display antes de la opacidad
+      setTimeout(() => { grid.style.opacity = '1'; }, 10);
+      
+      btn.innerText = "Volver a vista de carrusel";
+      btn.style.borderColor = "var(--green-h)";
+    } else {
+      // Volver al estado original
+      grid.style.opacity = '0';
+      setTimeout(() => {
+        grid.style.display = 'none';
+        marquee.style.display = 'block';
+      }, 500); // Esperar a que termine la transición de opacidad
+      
+      btn.innerText = "Mostrar todos los colaboradores";
+      btn.style.borderColor = "var(--bg-color)";
+    }
+  });
+</script>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Crist<span class="green-char">h</span>ian Moreno.</p>
+    <p style="font-size: 0.8rem; opacity: 0.7;">Derecho, Política & Sociedad.</p>
+  </footer>
+
+  <!-- HERRAMIENTAS FLOTANTES -->
+  <button id="theme-toggle" aria-label="Cambiar modo oscuro">
+    <span class="icon-sun">☀</span>
+    <span class="icon-moon">☾</span>
+  </button>
+
+  <!-- MODAL DE AUTOR REDISEÑADO -->
+  <div id="collab-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="close-modal-btn" aria-label="Cerrar">&times;</button>
+      
+      <div class="modal-body">
+        <div class="modal-visual">
+          <div class="modal-img-wrapper">
+            <img id="modal-img" src="" alt="Foto del autor">
+          </div>
+        </div>
+        <div class="modal-details">
+          <span class="modal-label">Perfil del Columnista</span>
+          <h2 id="modal-name" class="modal-title"></h2>
+          <div class="modal-divider"></div>
+          <p id="modal-bio" class="modal-text"></p>
+          <div class="modal-actions">
+            <a id="modal-link" href="#" target="_blank" class="modal-btn">
+              Ver perfil completo &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Dark Mode */
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    if (localStorage.getItem('theme') === 'dark') body.setAttribute('data-theme', 'dark');
+    toggleBtn.addEventListener('click', () => {
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme'); localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    /* --- LÓGICA MODAL AUTORES --- */
+    const authorsData = {
+      
+        "cristhian": {
+          "name": "Cristhian Moreno",
+          "bio": "Estudiante de Derecho y Representante Estudiantil.",
+          "avatar": "/assets/img/authors/cristhian.jpg",
+          "web": "https://twitter.com/cristhian"
+        },
+      
+        "profesor_x": {
+          "name": "Dr. Juan Pérez",
+          "bio": "Profesor de Derecho Constitucional.",
+          "avatar": "/assets/img/authors/juan.jpg",
+          "web": "https://university.edu"
+        },
+      
+    };
+
+    const modalOverlay = document.getElementById('collab-modal');
+    const closeModalBtn = document.querySelector('.close-modal-btn');
+    const modalImg = document.getElementById('modal-img');
+    const modalName = document.getElementById('modal-name');
+    const modalBio = document.getElementById('modal-bio');
+    const modalLink = document.getElementById('modal-link');
+
+    window.openAuthorModal = function(key) {
+      const data = authorsData[key];
+      if(data) {
+        modalImg.src = data.avatar || '/assets/img/default-avatar.png';
+        modalName.innerText = data.name;
+        modalBio.innerText = data.bio;
+        
+        if (data.web) {
+          modalLink.href = data.web;
+          modalLink.style.display = 'inline-block';
+        } else {
+          modalLink.style.display = 'none';
+        }
+
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+      }
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = ''; 
+    }
+
+    closeModalBtn.onclick = closeModal;
+    window.onclick = (e) => { if (e.target == modalOverlay) closeModal(); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape" && modalOverlay.classList.contains('active')) closeModal();
+    });
+
+     /* --- LÓGICA BUSCADOR ROBUSTA --- */
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results-container');
+    let postsData = [];
+
+    // 1. Cargar datos usando la ruta relativa correcta de Jekyll
+    fetch("/assets/search.json")
+      .then(response => {
+        if (!response.ok) throw new Error("No se pudo cargar search.json");
+        return response.json();
+      })
+      .then(data => {
+        postsData = data;
+        console.log("Buscador cargado: " + data.length + " entradas.");
+      })
+      .catch(err => console.error("Error cargando buscador:", err));
+
+    // 2. Evento de Búsqueda
+    searchInput.addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase().trim();
+      resultsContainer.innerHTML = '';
+
+      if (query.length < 2) {
+        resultsContainer.style.display = 'none';
+        return;
+      }
+
+      // Filtrar
+      const filteredPosts = postsData.filter(post => {
+        // Validamos que los campos existan antes de buscar para evitar errores
+        const titleMatch = post.title && post.title.toLowerCase().includes(query);
+        const catMatch   = post.category && post.category.toLowerCase().includes(query);
+        const tagMatch   = post.tags && post.tags.toLowerCase().includes(query);
+        
+        return titleMatch || catMatch || tagMatch;
+      });
+
+      // Mostrar Resultados
+      if (filteredPosts.length > 0) {
+        resultsContainer.style.display = 'block';
+        
+        filteredPosts.forEach(post => {
+          const a = document.createElement('a');
+          a.classList.add('search-result-item');
+          a.href = post.url;
+          
+          // Decidir qué meta-dato mostrar (Tag o Categoría)
+          let metaInfo = post.date;
+          if(post.tags && post.tags.toLowerCase().includes(query)) {
+             metaInfo = `<span class="search-tag">#${post.tags}</span>`;
+          } else if (post.category) {
+             metaInfo = `<span>${post.category}</span> • ${post.date}`;
+          }
+
+          a.innerHTML = `
+            <span class="search-result-title">${post.title}</span>
+            <div class="search-meta">${metaInfo}</div>
+          `;
+          resultsContainer.appendChild(a);
+        });
+      } else {
+        resultsContainer.style.display = 'block';
+        resultsContainer.innerHTML = '<div style="padding:15px; text-align:center; opacity:0.6; font-size:0.9rem;">No hay resultados para "' + query + '"</div>';
+      }
+    });
+
+    // Cerrar buscador al hacer clic fuera
+    document.addEventListener('click', function(e) {
+      if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+        resultsContainer.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

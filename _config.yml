@@ -1,0 +1,23 @@
+title: "Cristhian Moreno"
+description: "Estudiante de Derecho, Representante Estudiantil y Blog Político."
+url: "https://tusitio.com"
+author: "Cristhian Moreno"
+lang: es
+
+# Configuración de estilo
+permalink: /:categories/:title/
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# Paginación
+paginate: 6
+paginate_path: "/blog/page:num/"
+
+# Colecciones (para eventos si quieres separarlos, o usaremos _data)
+collections:
+  guides:
+    output: true
