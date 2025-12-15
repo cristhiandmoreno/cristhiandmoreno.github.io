@@ -8,7 +8,7 @@ seo_type: Article # Opcional: Cambia a "Article" o "BlogPosting" según convenga
 description: "Expectativas del blog"
 image: /assets/img/publicaciones/prolegomeno.jpg
 caption: "Fotografía tomada en el Jardín Botánico de Bogotá, Colombia"
-discusion: true # ESTO ACTIVA LOS COMENTARIOS DE GISCUS
+discusion: false # ESTO ACTIVA LOS COMENTARIOS DE GISCUS
 alt: "Cristhian Moreno"
 ---
 Cuando pensé este proyecto, hace unos _10 meses_, no contaba con todo el cambio de perspectivas e ideas que podían girar en torno a esta página. En principio, quería que la página fuera un refugio personal de producción pasiva de mi pensamiento, donde podría expandir, esclarecer y mejorar mis ideas, y con el tiempo ir practicando la escritura, pues, como estudiante, la peor practica es la que no se hace.  
