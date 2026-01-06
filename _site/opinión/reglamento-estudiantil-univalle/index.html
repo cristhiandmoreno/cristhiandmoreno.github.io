@@ -92,168 +92,532 @@
   <!-- CONTENIDO DINÁMICO -->
   <main>
     
-<!-- Icono del blog -->
-<link rel="icon" href="http://localhost:4000/assets/favicon.ico type="image/x-icon">
 <!-- Fuente de lectura -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
-<article class="post-container">
+<style>
+  /* --- LAYOUT GENERAL (Grid 2 columnas - 3:1 ratio) --- */
+  .blog-post-wrapper {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* 75% | 25% como la referencia */
+    gap: 40px;
+    align-items: start;
+    font-family: var(--font-main);
+  }
 
-  <!-- CABECERA DEL ARTÍCULO -->
-  <header class="post-header">
-    
-    <!-- ETIQUETAS INTELIGENTES -->
-    <!-- Al hacer clic, activan el buscador global -->
-    <div class="post-tags-container">
+  .blog-post-main {
+    min-width: 0;
+  }
+
+  /* --- HEADER DEL ARTÍCULO --- */
+  .blog-post-header {
+    text-align: left;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 30px;
+  }
+
+  .blog-post-category {
+    background: var(--text-color);
+    color: var(--bg-color);
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .blog-post-title {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-weight: 700;
+    max-width: 90%;
+  }
+
+  .blog-post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+
+  .meta-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+  }
+
+  .meta-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--green-h);
+  }
+
+  .meta-stats {
+    display: flex;
+    gap: 20px;
+    color: grey;
+    font-size: 0.85rem;
+  }
+
+  /* --- CONTENIDO --- */
+  .blog-post-content {
+    font-family: 'Merriweather', serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 90ch;
+    text-align: justify;
+  }
+
+  .blog-post-content > p:first-of-type::first-letter {
+    float: left;
+    font-size: 5rem;
+    line-height: 0.8;
+    font-weight: 700;
+    font-family: var(--font-main);
+    margin-right: 15px;
+    color: var(--text-color);
+  }
+
+  /* --- SIDEBAR STICKY (Desde newspaper.html) --- */
+  .blog-sidebar {
+    position: sticky;
+    top: 100px;
+    padding-left: 30px;
+    border-left: 1px solid var(--border-color);
+    height: fit-content;
+  }
+
+  .sidebar-section {
+    margin-bottom: 40px;
+  }
+
+  .sidebar-header {
+    font-family: sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--text-color);
+    padding-bottom: 5px;
+  }
+
+  .sidebar-item {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dotted var(--border-color);
+  }
+
+  .sidebar-item:last-child {
+    border-bottom: none;
+  }
+
+  .sidebar-topic-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--green-h);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-title {
+    font-family: var(--font-main);
+    font-size: 1rem;
+    line-height: 1.3;
+    margin: 0 0 5px 0;
+    font-weight: 700;
+  }
+
+  .sidebar-title a:hover {
+    color: var(--green-h);
+  }
+
+  .sidebar-date {
+    font-size: 0.7rem;
+    color: #888;
+  }
+
+  /* --- AUTOR (Estilo Newspaper) --- */
+  .blog-author-section {
+    margin-top: 60px;
+    background: var(--bg-alt);
+    padding: 30px;
+    border-top: 4px solid var(--text-color);
+  }
+
+  .blog-author-box {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .blog-author-box:hover {
+    transform: translateX(5px);
+  }
+
+  .blog-author-box img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    border: 2px solid var(--green-h);
+  }
+
+  .author-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .mini-author-post {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    font-weight: bold;
+    display: block;
+  }
+
+  .mini-author-post:hover {
+    color: var(--green-h);
+    text-decoration: underline;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .blog-post-wrapper {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .blog-sidebar {
+      padding-left: 0;
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+      padding-top: 30px;
+      position: static;
+    }
+
+    .blog-post-title {
+      font-size: 2.2rem;
+      max-width: 100%;
+    }
+
+    .blog-post-content {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 100%;
+    }
+
+    .author-posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="blog-post-wrapper">
+
+  <!-- COLUMNA PRINCIPAL -->
+  <article class="blog-post-main">
+
+    <!-- CABECERA -->
+    <header class="blog-post-header">
       
-        <!-- Categoría Principal -->
-        <button onclick="triggerSearch('Opinión')" class="tag-pill main-cat" style="border:none; cursor:pointer;">
+      <!-- Categoría Principal -->
+      
+        <div class="blog-post-category">
           Opinión
-        </button>
+        </div>
       
-      
-      
-        
-          <!-- Tags Secundarios -->
-          <button onclick="triggerSearch('Acta fundacional')" class="tag-pill topic-tag" style="background:transparent; cursor:pointer;">
-            #Acta fundacional
-          </button>
-        
-          <!-- Tags Secundarios -->
-          <button onclick="triggerSearch('univalle')" class="tag-pill topic-tag" style="background:transparent; cursor:pointer;">
-            #univalle
-          </button>
-        
-      
-    </div>
 
-    <h1 class="post-title">Reglamento univalle: Lo que dice y no dice el acuerdo 009 de 1997 de la Universidad del Vale</h1>
+      <h1 class="blog-post-title">Reglamento univalle: Lo que dice y no dice el acuerdo 009 de 1997 de la Universidad del Vale</h1>
 
-    
-      <p class="post-lead">Vistazo al acuerdo 009 de 1997 de la Universidad del Valle que expide el Reglamento Estudiantil Pregrados</p>
-    
+      
+        <p class="post-lead">Vistazo al acuerdo 009 de 1997 de la Universidad del Valle que expide el Reglamento Estudiantil Pregrados</p>
+      
 
-    <!-- Meta Datos -->
-    <div class="post-meta-line">
-      <div class="meta-author" onclick="openAuthorModal('cristhian')">
+      <!-- Metadatos -->
+      <div class="blog-post-meta">
+        <div class="meta-author" onclick="openAuthorModal('cristhian')">
+          <div>
+            <span class="byline">Por <strong>Cristhian Moreno</strong></span>
+            <time class="pub-date">26 de December de 2025</time>
+          </div>
+        </div>
         
-          <img src="/assets/img/authors/cristhian.jpg" alt="Cristhian Moreno">
-        
-        <div>
-          <span class="byline">Por <strong>Cristhian Moreno</strong></span>
-          <time class="pub-date">26 de December de 2025</time>
+        <div class="meta-stats">
+          <span title="Tiempo de lectura estimado">⏱️ 0 min de lectura</span>
         </div>
       </div>
-      
-      <div class="meta-actions">
-        <span title="Tiempo de lectura estimado">⏱️ 0 min de lectura</span>
-      </div>
-    </div>
-  </header>
 
-  <!-- IMAGEN -->
-  
-    <figure class="post-featured-image">
-      <img src="/assets/img/publicaciones/reglamento-univalle.jpg" alt="Cristhian Moreno">
+      <!-- Etiquetas -->
       
-        <figcaption>Fotografía del reglamento pregrado de la Universidad del Valle</figcaption>
+        <div class="post-tags-container" style="margin-top: 20px;">
+          
+            <button onclick="triggerSearch('Acta fundacional')" class="tag-pill topic-tag" style="background:transparent; cursor:pointer;">
+              #Acta fundacional
+            </button>
+          
+            <button onclick="triggerSearch('univalle')" class="tag-pill topic-tag" style="background:transparent; cursor:pointer;">
+              #univalle
+            </button>
+          
+        </div>
       
-    </figure>
-  
+    </header>
 
-  <!-- CONTENIDO -->
-  <div class="post-content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    <!-- IMAGEN DESTACADA -->
+    
+      <figure class="post-featured-image">
+        <img src="/assets/img/publicaciones/reglamento-univalle.jpg" alt="Cristhian Moreno">
+        
+          <figcaption>Fotografía del reglamento pregrado de la Universidad del Valle</figcaption>
+        
+      </figure>
+    
+
+    <!-- CONTENIDO -->
+    <div class="blog-post-content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-  </div>
-
-  <hr class="post-divider">
-
-  <!-- CAJA AUTOR -->
-  <div class="author-box" onclick="openAuthorModal('cristhian')">
-    <div class="author-visual">
-      
-        <img src="/assets/img/authors/cristhian.jpg" alt="Cristhian Moreno">
-      
     </div>
 
-    <div class="author-info">
-      <span class="author-label">Autor</span>
-      <h3 class="author-name">Cristhian Moreno</h3>
-      <p class="author-bio">Estudiante de Derecho y Representante Estudiantil.</p>
-      <div class="author-cta">
-        <span>Ver perfil completo y más entradas</span>
-        <span class="arrow">→</span>
+    <hr class="post-divider">
+
+    <!-- SECCIÓN AUTOR (Estilo Newspaper) -->
+    <div class="blog-author-section">
+      <div class="blog-author-box" onclick="openAuthorModal('cristhian')">
+        
+          <img src="/assets/img/authors/cristhian.jpg" alt="Cristhian Moreno">
+        
+        <div>
+          <span style="color:var(--green-h); font-weight:900; text-transform:uppercase; font-size:0.75rem;">Autor</span>
+          <h3 style="margin: 0; font-family:var(--font-main); font-size:1.6rem;">Cristhian Moreno</h3>
+          <p style="margin: 5px 0 0; font-size:0.9rem; opacity:0.8;">Estudiante de Derecho y Representante Estudiantil.</p>
+          <span style="font-size:0.75rem; text-decoration:underline; font-weight:bold;">Ver perfil completo</span>
+        </div>
+      </div>
+
+      <div class="more-from-author">
+        <h4 style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">
+          Más de Cristhian Moreno
+        </h4>
+        <div class="author-posts-grid">
+          
+          
+            <a href="/opini%C3%B3n/un-breve-prolegomeno/" class="mini-author-post">
+              Un breve prolegómeno
+            </a>
+          
+        </div>
       </div>
     </div>
-  </div>
 
- <!-- SECCIÓN COMPARTIR REDES -->
-  <div class="share-section">
-    <span class="share-label">¿Te gustó esta entrada? Compártela.</span>
-    
-    <div class="share-buttons">
+    <!-- SECCIÓN COMPARTIR (Manteniendo tu diseño original) -->
+    <div class="share-section">
+      <span class="share-label">¿Te gustó esta entrada? Compártela.</span>
       
-      <!-- 1. WhatsApp -->
- <a href="https://api.whatsapp.com/send?text=Reglamento+univalle%3A+Lo+que+dice+y+no+dice+el+acuerdo+009+de+1997+de+la+Universidad+del+Vale%20http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/"
-   target="_blank"
-   rel="noopener"
-   class="share-btn"
-   aria-label="Compartir en WhatsApp">
+      <div class="share-buttons">
+        <!-- WhatsApp -->
+        <a href="https://api.whatsapp.com/send?text=Reglamento+univalle%3A+Lo+que+dice+y+no+dice+el+acuerdo+009+de+1997+de+la+Universidad+del+Vale%20http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/"
+           target="_blank"
+           rel="noopener"
+           class="share-btn"
+           aria-label="Compartir en WhatsApp">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="currentColor" aria-hidden="true">
+            <path d="M16.003 3C9.383 3 4 8.383 4 15.003c0 2.646.873 5.092 2.35 7.062L4 29l7.145-2.3a11.94 11.94 0 0 0 4.858 1.01h.003C22.617 27.71 28 22.326 28 15.707 28 9.087 22.617 3 16.003 3zm0 21.9a9.85 9.85 0 0 1-4.997-1.36l-.358-.213-4.238 1.366 1.39-4.126-.232-.368a9.83 9.83 0 0 1-1.516-5.196c0-5.433 4.42-9.852 9.951-9.852 2.636 0 5.113 1.026 6.976 2.889a9.8 9.8 0 0 1 2.875 6.967c0 5.434-4.42 9.853-9.851 9.853zm5.544-7.41c-.3-.15-1.777-.876-2.053-.977-.276-.1-.477-.15-.676.15-.2.3-.78.977-.957 1.177-.176.2-.353.226-.653.076-.3-.15-1.268-.47-2.414-1.49-.893-.797-1.497-1.781-1.672-2.08-.176-.3-.019-.463.132-.612.135-.134.3-.35.45-.525.15-.176.2-.3.3-.5.1-.2.05-.375-.026-.525-.076-.15-.676-1.626-.926-2.228-.245-.585-.493-.505-.676-.516-.175-.008-.375-.01-.576-.01-.2 0-.525.076-.8.375-.275.3-1.05 1.026-1.05 2.502 0 1.476 1.076 2.918 1.226 3.118.15.2 2.12 3.237 5.137 4.537.718.31 1.278.495 1.712.633.72.23 1.377.198 1.893.12.58-.086 1.777-.726 2.03-1.428.253-.702.253-1.304.176-1.428-.076-.125-.276-.2-.576-.35z"/>
+          </svg>
+        </a>
 
-  <svg xmlns="http://www.w3.org/2000/svg"
-       viewBox="0 0 32 32"
-       width="24"
-       height="24"
-       fill="currentColor"
-       aria-hidden="true">
-    <path d="M16.003 3C9.383 3 4 8.383 4 15.003c0 2.646.873 5.092 2.35 7.062L4 29l7.145-2.3a11.94 11.94 0 0 0 4.858 1.01h.003C22.617 27.71 28 22.326 28 15.707 28 9.087 22.617 3 16.003 3zm0 21.9a9.85 9.85 0 0 1-4.997-1.36l-.358-.213-4.238 1.366 1.39-4.126-.232-.368a9.83 9.83 0 0 1-1.516-5.196c0-5.433 4.42-9.852 9.951-9.852 2.636 0 5.113 1.026 6.976 2.889a9.8 9.8 0 0 1 2.875 6.967c0 5.434-4.42 9.853-9.851 9.853zm5.544-7.41c-.3-.15-1.777-.876-2.053-.977-.276-.1-.477-.15-.676.15-.2.3-.78.977-.957 1.177-.176.2-.353.226-.653.076-.3-.15-1.268-.47-2.414-1.49-.893-.797-1.497-1.781-1.672-2.08-.176-.3-.019-.463.132-.612.135-.134.3-.35.45-.525.15-.176.2-.3.3-.5.1-.2.05-.375-.026-.525-.076-.15-.676-1.626-.926-2.228-.245-.585-.493-.505-.676-.516-.175-.008-.375-.01-.576-.01-.2 0-.525.076-.8.375-.275.3-1.05 1.026-1.05 2.502 0 1.476 1.076 2.918 1.226 3.118.15.2 2.12 3.237 5.137 4.537.718.31 1.278.495 1.712.633.72.23 1.377.198 1.893.12.58-.086 1.777-.726 2.03-1.428.253-.702.253-1.304.176-1.428-.076-.125-.276-.2-.576-.35z"/>
-  </svg>
-</a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/" target="_blank" class="share-btn" aria-label="Compartir en Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
 
+        <!-- Twitter / X -->
+        <a href="https://twitter.com/intent/tweet?text=Reglamento+univalle%3A+Lo+que+dice+y+no+dice+el+acuerdo+009+de+1997+de+la+Universidad+del+Vale&url=http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/" target="_blank" class="share-btn" aria-label="Compartir en X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        
+        <!-- Email -->
+        <a href="mailto:?subject=Lectura recomendada: Reglamento+univalle%3A+Lo+que+dice+y+no+dice+el+acuerdo+009+de+1997+de+la+Universidad+del+Vale&body=Hola, te comparto este artículo de Cristhian Moreno que me pareció interesante: http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/" class="share-btn" aria-label="Enviar por Correo">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
 
-      <!-- 2. Facebook -->
-      <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/" target="_blank" class="share-btn" aria-label="Compartir en Facebook">
-        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-      </a>
+        <!-- Copiar Enlace -->
+        <button id="copy-link-btn" class="share-btn" aria-label="Copiar Enlace" onclick="copyToClipboard('http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/')">
+          <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+          <span class="share-tooltip">¡Enlace copiado!</span>
+        </button>
 
-      <!-- 3. Twitter / X -->
-      <a href="https://twitter.com/intent/tweet?text=Reglamento+univalle%3A+Lo+que+dice+y+no+dice+el+acuerdo+009+de+1997+de+la+Universidad+del+Vale&url=http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/" target="_blank" class="share-btn" aria-label="Compartir en X">
-        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      
-      <!-- 4. Email -->
-      <a href="mailto:?subject=Lectura recomendada: Reglamento+univalle%3A+Lo+que+dice+y+no+dice+el+acuerdo+009+de+1997+de+la+Universidad+del+Vale&body=Hola, te comparto este artículo de Cristhian Moreno que me pareció interesante: http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/" class="share-btn" aria-label="Enviar por Correo">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </a>
-
-      <!-- 5. Copiar Enlace (Para Instagram) -->
-      <button id="copy-link-btn" class="share-btn" aria-label="Copiar Enlace" onclick="copyToClipboard('http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/')">
-        <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-        <span class="share-tooltip">¡Enlace copiado!</span>
-      </button>
-
-      <!-- 6. Botón Nativo (Solo Móvil) -->
-      <button id="native-share-btn" class="share-btn" aria-label="Compartir (Más opciones)">
-        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-      </button>
-
+        <!-- Botón Nativo (Solo Móvil) -->
+        <button id="native-share-btn" class="share-btn" aria-label="Compartir (Más opciones)">
+          <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- DISCUSIÓN -->
-  
-  <section class="comments-section">
-    <h3 class="comments-title">Discusión</h3>
-    <p class="post-lead">Para entrar en la discusión, tienes que crear una cuenta en <a style="color: var(--green-h)" href="https://github.com/signup" target="_blank">Github</a>, o sino, puedes enviar un correo a crdmcx@gmail.com</p>
-    <div class="giscus"></div>
-  </section>
+    <!-- DISCUSIÓN -->
+    
+    <section class="comments-section">
+      <h3 class="comments-title">Discusión</h3>
+      <p class="post-lead">Para entrar en la discusión, tienes que crear una cuenta en <a style="color: var(--green-h)" href="https://github.com/signup" target="_blank">Github</a>, o sino, puedes enviar un correo a crdmcx@gmail.com</p>
+      <div class="giscus"></div>
+    </section>
+    
+
+  </article>
+
+  <!-- SIDEBAR (Desde newspaper.html) -->
+  <aside class="blog-sidebar">
+    
+    <!-- TEMAS RELACIONADOS -->
+    <div class="sidebar-section">
+      <div class="sidebar-header">Temas Relacionados</div>
+      
+      
+      
+      
+
+      
+        
+      
+        
+          
+          
+
+          
+        
+      
+        
+          
+          
+
+          
+            <div class="sidebar-item">
+              <span class="sidebar-topic-label">Acta fundacional</span>
+              <h4 class="sidebar-title"><a href="/opini%C3%B3n/un-breve-prolegomeno/">Un breve prolegómeno</a></h4>
+            </div>
+            
+            
+          
+        
+      
+
+      
+    </div>
+
+    <!-- LO MÁS RECIENTE -->
+    <div class="sidebar-section">
+      <div class="sidebar-header">Lo más reciente</div>
+      
+      
+         <div class="sidebar-item">
+           <h4 class="sidebar-title"><a href="/opini%C3%B3n/reglamento-estudiantil-univalle/">Reglamento univalle: Lo que dice y no dice el acuerdo 009 de 1997 de la Universidad del Vale</a></h4>
+           <span class="sidebar-date">26 Dec</span>
+         </div>
+      
+         <div class="sidebar-item">
+           <h4 class="sidebar-title"><a href="/el-inconforme/la-ia-en-la-academia/">Escribir para la máquina: detectores de IA e indefensión estudiantil</a></h4>
+           <span class="sidebar-date">18 Dec</span>
+         </div>
+      
+         <div class="sidebar-item">
+           <h4 class="sidebar-title"><a href="/opini%C3%B3n/un-breve-prolegomeno/">Un breve prolegómeno</a></h4>
+           <span class="sidebar-date">30 Nov</span>
+         </div>
+      
+    </div>
+
+    <!-- ARCHIVO / CATEGORÍAS -->
+    <div class="sidebar-section">
+      <div class="sidebar-header">Categorías</div>
+      
+      
+        <div class="sidebar-item">
+          <h4 class="sidebar-title">
+            <a href="/el-inconforme">El Inconforme</a>
+          </h4>
+          <span class="sidebar-date">1 artículos</span>
+        </div>
+      
+        <div class="sidebar-item">
+          <h4 class="sidebar-title">
+            <a href="/opinión">Opinión</a>
+          </h4>
+          <span class="sidebar-date">3 artículos</span>
+        </div>
+      
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- SCRIPT DE CONEXIÓN CON BUSCADOR -->
+<script>
+  function triggerSearch(term) {
+    const searchInput = document.getElementById('search-input');
+    if(searchInput) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      setTimeout(() => {
+        searchInput.value = term;
+        searchInput.focus();
+        const event = new Event('input', { bubbles: true });
+        searchInput.dispatchEvent(event);
+      }, 500);
+    }
+  }
+
+  // Script de Compartir
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-link-btn');
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 2000);
+    });
+  }
+
+  // Lógica Compartir Nativo (Mobile)
+  const nativeBtn = document.getElementById('native-share-btn');
+  if (navigator.share) {
+    nativeBtn.style.display = 'flex';
+    nativeBtn.addEventListener('click', () => {
+      navigator.share({
+        title: 'Reglamento univalle: Lo que dice y no dice el acuerdo 009 de 1997 de la Universidad del Vale',
+        text: 'Te comparto este artículo interesante de Cristhian Moreno',
+        url: 'http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/'
+      }).catch(console.error);
+    });
+  } else {
+    nativeBtn.style.display = 'none';
+  }
+</script>
+
 
 <script src="https://giscus.app/client.js"
         data-repo="cristhiandmoreno/comentariosblog"
@@ -270,67 +634,18 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         crossorigin="anonymous"
         async>
 </script>
-  <script>
-    function updateGiscusTheme() {
-      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (!iframe) return;
-      iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
-    }
-    const observer = new MutationObserver(updateGiscusTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  </script>
-  
 
-</article>
-
-<!-- SCRIPT DE CONEXIÓN (POST -> BUSCADOR) -->
 <script>
-  // Esta función toma el tag, sube al header, lo escribe y dispara el evento 'input'
-  function triggerSearch(term) {
-    const searchInput = document.getElementById('search-input');
-    if(searchInput) {
-      // 1. Scroll suave hacia arriba para ver el buscador
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      // 2. Esperar un momento a que llegue arriba y llenar el buscador
-      setTimeout(() => {
-        searchInput.value = term;
-        searchInput.focus();
-        // 3. Disparar manualmente el evento de búsqueda
-        const event = new Event('input', { bubbles: true });
-        searchInput.dispatchEvent(event);
-      }, 500);
-    }
+  function updateGiscusTheme() {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
   }
-
-
-  // Script de Compartir
-
-   // 1. Lógica Copiar Enlace
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('copy-link-btn');
-        btn.classList.add('copied');
-        setTimeout(() => btn.classList.remove('copied'), 2000); // Quitar tooltip a los 2s
-      });
-    }
-
-    // 2. Lógica Compartir Nativo (Mobile)
-    const nativeBtn = document.getElementById('native-share-btn');
-    if (navigator.share) {
-      nativeBtn.style.display = 'flex'; // Mostrar solo si el navegador lo soporta
-      nativeBtn.addEventListener('click', () => {
-        navigator.share({
-          title: 'Reglamento univalle: Lo que dice y no dice el acuerdo 009 de 1997 de la Universidad del Vale',
-          text: 'Te comparto este artículo interesante de Cristhian Moreno',
-          url: 'http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/'
-        }).catch(console.error);
-      });
-    } else {
-      nativeBtn.style.display = 'none'; // Ocultar en PC antiguos
-    }
+  const observer = new MutationObserver(updateGiscusTheme);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 </script>
+
 
 <!-- DATOS ESTRUCTURADOS -->
 <script type="application/ld+json">
@@ -342,14 +657,13 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     "@id": "http://localhost:4000/opini%C3%B3n/reglamento-estudiantil-univalle/"
   },
   "headline": "Reglamento univalle: Lo que dice y no dice el acuerdo 009 de 1997 de la Universidad del Vale",
-  "image": ["http://localhost:4000/assets/img/publicaciones/reglamento-univalle.jpg"],
+  "image": "http://localhost:4000/assets/img/publicaciones/reglamento-univalle.jpg",
   "datePublished": "2025-12-26T00:00:00-05:00",
   "dateModified": "2025-12-26T00:00:00-05:00",
   "author": {
     "@type": "Person",
     "name": "Cristhian Moreno",
-    "url": "https://twitter.com/cristhian"
-
+    "url": "/about/"
   },
   "publisher": {
     "@type": "Organization",
@@ -360,7 +674,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     }
   },
   "description": "Vistazo al acuerdo 009 de 1997 de la Universidad del Valle que expide el Reglamento Estudiantil Pregrados",
-  "articleSection": "Acta fundacional",
+  "articleSection": "Opinión",
   "keywords": "Acta fundacional, univalle",
   "wordCount": "69",
   "inLanguage": "es-CO",
@@ -370,7 +684,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </main>
 
   <footer>
-    <p>&copy; 2025 Crist<span class="green-char">h</span>ian Moreno.</p>
+    <p>&copy; 2026 Crist<span class="green-char">h</span>ian Moreno.</p>
     <p style="font-size: 0.8rem; opacity: 0.7;">Derecho, Política & Sociedad.</p>
   </footer>
 
@@ -426,7 +740,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           "name": "Cristhian Moreno",
           "bio": "Estudiante de Derecho y Representante Estudiantil.",
           "avatar": "/assets/img/authors/cristhian.jpg",
-          "web": "https://twitter.com/cristhian"
+          "web": "/about/"
         },
       
         "kevin": {

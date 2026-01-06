@@ -2,160 +2,505 @@
 layout: default
 ---
 {% assign author = site.data.authors[page.author] %}
-<!-- Icono del blog -->
-<link rel="icon" href="{{ site.url }}{{ site.baseurl }}/assets/favicon.ico type="image/x-icon">
 <!-- Fuente de lectura -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
-<article class="post-container">
+<style>
+  /* --- LAYOUT GENERAL (Grid 2 columnas - 3:1 ratio) --- */
+  .blog-post-wrapper {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* 75% | 25% como la referencia */
+    gap: 40px;
+    align-items: start;
+    font-family: var(--font-main);
+  }
 
-  <!-- CABECERA DEL ARTÍCULO -->
-  <header class="post-header">
-    
-    <!-- ETIQUETAS INTELIGENTES -->
-    <!-- Al hacer clic, activan el buscador global -->
-    <div class="post-tags-container">
-      {% if page.categories.size > 0 %}
-        <!-- Categoría Principal -->
-        <button onclick="triggerSearch('{{ page.categories | first }}')" class="tag-pill main-cat" style="border:none; cursor:pointer;">
-          {{ page.categories | first }}
-        </button>
-      {% endif %}
+  .blog-post-main {
+    min-width: 0;
+  }
+
+  /* --- HEADER DEL ARTÍCULO --- */
+  .blog-post-header {
+    text-align: left;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 30px;
+  }
+
+  .blog-post-category {
+    background: var(--text-color);
+    color: var(--bg-color);
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .blog-post-title {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-weight: 700;
+    max-width: 90%;
+  }
+
+  .blog-post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+
+  .meta-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+  }
+
+  .meta-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--green-h);
+  }
+
+  .meta-stats {
+    display: flex;
+    gap: 20px;
+    color: grey;
+    font-size: 0.85rem;
+  }
+
+  /* --- CONTENIDO --- */
+  .blog-post-content {
+    font-family: 'Merriweather', serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 90ch;
+    text-align: justify;
+  }
+
+  .blog-post-content > p:first-of-type::first-letter {
+    float: left;
+    font-size: 5rem;
+    line-height: 0.8;
+    font-weight: 700;
+    font-family: var(--font-main);
+    margin-right: 15px;
+    color: var(--text-color);
+  }
+
+  /* --- SIDEBAR STICKY (Desde newspaper.html) --- */
+  .blog-sidebar {
+    position: sticky;
+    top: 100px;
+    padding-left: 30px;
+    border-left: 1px solid var(--border-color);
+    height: fit-content;
+  }
+
+  .sidebar-section {
+    margin-bottom: 40px;
+  }
+
+  .sidebar-header {
+    font-family: sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--text-color);
+    padding-bottom: 5px;
+  }
+
+  .sidebar-item {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dotted var(--border-color);
+  }
+
+  .sidebar-item:last-child {
+    border-bottom: none;
+  }
+
+  .sidebar-topic-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--green-h);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-title {
+    font-family: var(--font-main);
+    font-size: 1rem;
+    line-height: 1.3;
+    margin: 0 0 5px 0;
+    font-weight: 700;
+  }
+
+  .sidebar-title a:hover {
+    color: var(--green-h);
+  }
+
+  .sidebar-date {
+    font-size: 0.7rem;
+    color: #888;
+  }
+
+  /* --- AUTOR (Estilo Newspaper) --- */
+  .blog-author-section {
+    margin-top: 60px;
+    background: var(--bg-alt);
+    padding: 30px;
+    border-top: 4px solid var(--text-color);
+  }
+
+  .blog-author-box {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .blog-author-box:hover {
+    transform: translateX(5px);
+  }
+
+  .blog-author-box img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    border: 2px solid var(--green-h);
+  }
+
+  .author-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .mini-author-post {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    font-weight: bold;
+    display: block;
+  }
+
+  .mini-author-post:hover {
+    color: var(--green-h);
+    text-decoration: underline;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .blog-post-wrapper {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .blog-sidebar {
+      padding-left: 0;
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+      padding-top: 30px;
+      position: static;
+    }
+
+    .blog-post-title {
+      font-size: 2.2rem;
+      max-width: 100%;
+    }
+
+    .blog-post-content {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 100%;
+    }
+
+    .author-posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="blog-post-wrapper">
+
+  <!-- COLUMNA PRINCIPAL -->
+  <article class="blog-post-main">
+
+    <!-- CABECERA -->
+    <header class="blog-post-header">
       
-      {% if page.tags %}
-        {% for tag in page.tags %}
-          <!-- Tags Secundarios -->
-          <button onclick="triggerSearch('{{ tag }}')" class="tag-pill topic-tag" style="background:transparent; cursor:pointer;">
-            #{{ tag }}
-          </button>
-        {% endfor %}
+      <!-- Categoría Principal -->
+      {% if page.categories.size > 0 %}
+        <div class="blog-post-category">
+          {{ page.categories | first }}
+        </div>
       {% endif %}
-    </div>
 
-    <h1 class="post-title">{{ page.title }}</h1>
+      <h1 class="blog-post-title">{{ page.title }}</h1>
 
-    {% if page.description %}
-      <p class="post-lead">{{ page.description }}</p>
+      {% if page.description %}
+        <p class="post-lead">{{ page.description }}</p>
+      {% endif %}
+
+      <!-- Metadatos -->
+      <div class="blog-post-meta">
+        <div class="meta-author" onclick="openAuthorModal('{{ page.author }}')">
+          <div>
+            <span class="byline">Por <strong>{{ author.name }}</strong></span>
+            <time class="pub-date">{{ page.date | date: "%d de %B de %Y" }}</time>
+          </div>
+        </div>
+        
+        <div class="meta-stats">
+          <span title="Tiempo de lectura estimado">⏱️ {{ content | number_of_words | divided_by: 180 }} min de lectura</span>
+        </div>
+      </div>
+
+      <!-- Etiquetas -->
+      {% if page.tags.size > 0 %}
+        <div class="post-tags-container" style="margin-top: 20px;">
+          {% for tag in page.tags %}
+            <button onclick="triggerSearch('{{ tag }}')" class="tag-pill topic-tag" style="background:transparent; cursor:pointer;">
+              #{{ tag }}
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </header>
+
+    <!-- IMAGEN DESTACADA -->
+    {% if page.image %}
+      <figure class="post-featured-image">
+        <img src="{{ page.image }}" alt="{{ page.alt }}">
+        {% if page.caption %}
+          <figcaption>{{ page.caption }}</figcaption>
+        {% endif %}
+      </figure>
     {% endif %}
 
-    <!-- Meta Datos -->
-    <div class="post-meta-line">
-      <div class="meta-author" onclick="openAuthorModal('{{ page.author }}')">
+    <!-- CONTENIDO -->
+    <div class="blog-post-content">
+      {{ content }}
+    </div>
+
+    <hr class="post-divider">
+
+    <!-- SECCIÓN AUTOR (Estilo Newspaper) -->
+    <div class="blog-author-section">
+      <div class="blog-author-box" onclick="openAuthorModal('{{ page.author }}')">
         {% if author.avatar %}
           <img src="{{ author.avatar }}" alt="{{ author.name }}">
         {% endif %}
         <div>
-          <span class="byline">Por <strong>{{ author.name }}</strong></span>
-          <time class="pub-date">{{ page.date | date: "%d de %B de %Y" }}</time>
+          <span style="color:var(--green-h); font-weight:900; text-transform:uppercase; font-size:0.75rem;">Autor</span>
+          <h3 style="margin: 0; font-family:var(--font-main); font-size:1.6rem;">{{ author.name }}</h3>
+          <p style="margin: 5px 0 0; font-size:0.9rem; opacity:0.8;">{{ author.bio | truncate: 120 }}</p>
+          <span style="font-size:0.75rem; text-decoration:underline; font-weight:bold;">Ver perfil completo</span>
         </div>
       </div>
+
+      <div class="more-from-author">
+        <h4 style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">
+          Más de {{ author.name }}
+        </h4>
+        <div class="author-posts-grid">
+          {% assign author_posts = site.posts | where: "author", page.author | where_exp: "item", "item.url != page.url" | limit: 3 %}
+          {% for post in author_posts %}
+            <a href="{{ post.url }}" class="mini-author-post">
+              {{ post.title }}
+            </a>
+          {% else %}
+            <span style="font-size:0.8rem; color:grey;">No hay entradas recientes.</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN COMPARTIR (Manteniendo tu diseño original) -->
+    <div class="share-section">
+      <span class="share-label">¿Te gustó esta entrada? Compártela.</span>
       
-      <div class="meta-actions">
-        <span title="Tiempo de lectura estimado">⏱️ {{ content | number_of_words | divided_by: 180 }} min de lectura</span>
+      <div class="share-buttons">
+        <!-- WhatsApp -->
+        <a href="https://api.whatsapp.com/send?text={{ page.title | url_encode }}%20{{ page.url | absolute_url }}"
+           target="_blank"
+           rel="noopener"
+           class="share-btn"
+           aria-label="Compartir en WhatsApp">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="currentColor" aria-hidden="true">
+            <path d="M16.003 3C9.383 3 4 8.383 4 15.003c0 2.646.873 5.092 2.35 7.062L4 29l7.145-2.3a11.94 11.94 0 0 0 4.858 1.01h.003C22.617 27.71 28 22.326 28 15.707 28 9.087 22.617 3 16.003 3zm0 21.9a9.85 9.85 0 0 1-4.997-1.36l-.358-.213-4.238 1.366 1.39-4.126-.232-.368a9.83 9.83 0 0 1-1.516-5.196c0-5.433 4.42-9.852 9.951-9.852 2.636 0 5.113 1.026 6.976 2.889a9.8 9.8 0 0 1 2.875 6.967c0 5.434-4.42 9.853-9.851 9.853zm5.544-7.41c-.3-.15-1.777-.876-2.053-.977-.276-.1-.477-.15-.676.15-.2.3-.78.977-.957 1.177-.176.2-.353.226-.653.076-.3-.15-1.268-.47-2.414-1.49-.893-.797-1.497-1.781-1.672-2.08-.176-.3-.019-.463.132-.612.135-.134.3-.35.45-.525.15-.176.2-.3.3-.5.1-.2.05-.375-.026-.525-.076-.15-.676-1.626-.926-2.228-.245-.585-.493-.505-.676-.516-.175-.008-.375-.01-.576-.01-.2 0-.525.076-.8.375-.275.3-1.05 1.026-1.05 2.502 0 1.476 1.076 2.918 1.226 3.118.15.2 2.12 3.237 5.137 4.537.718.31 1.278.495 1.712.633.72.23 1.377.198 1.893.12.58-.086 1.777-.726 2.03-1.428.253-.702.253-1.304.176-1.428-.076-.125-.276-.2-.576-.35z"/>
+          </svg>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url }}" target="_blank" class="share-btn" aria-label="Compartir en Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+
+        <!-- Twitter / X -->
+        <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url }}" target="_blank" class="share-btn" aria-label="Compartir en X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        
+        <!-- Email -->
+        <a href="mailto:?subject=Lectura recomendada: {{ page.title | url_encode }}&body=Hola, te comparto este artículo de Cristhian Moreno que me pareció interesante: {{ page.url | absolute_url }}" class="share-btn" aria-label="Enviar por Correo">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+
+        <!-- Copiar Enlace -->
+        <button id="copy-link-btn" class="share-btn" aria-label="Copiar Enlace" onclick="copyToClipboard('{{ page.url | absolute_url }}')">
+          <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+          <span class="share-tooltip">¡Enlace copiado!</span>
+        </button>
+
+        <!-- Botón Nativo (Solo Móvil) -->
+        <button id="native-share-btn" class="share-btn" aria-label="Compartir (Más opciones)">
+          <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+        </button>
       </div>
     </div>
-  </header>
 
-  <!-- IMAGEN -->
-  {% if page.image %}
-    <figure class="post-featured-image">
-      <img src="{{ page.image }}" alt="{{ page.alt }}">
-      {% if page.caption %}
-        <figcaption>{{ page.caption }}</figcaption>
-      {% endif %}
-    </figure>
-  {% endif %}
+    <!-- DISCUSIÓN -->
+    {% if page.discusion %}
+    <section class="comments-section">
+      <h3 class="comments-title">Discusión</h3>
+      <p class="post-lead">Para entrar en la discusión, tienes que crear una cuenta en <a style="color: var(--green-h)" href="https://github.com/signup" target="_blank">Github</a>, o sino, puedes enviar un correo a crdmcx@gmail.com</p>
+      <div class="giscus"></div>
+    </section>
+    {% endif %}
 
-  <!-- CONTENIDO -->
-  <div class="post-content">
-    {{ content }}
-  </div>
+  </article>
 
-  <hr class="post-divider">
-
-  <!-- CAJA AUTOR -->
-  <div class="author-box" onclick="openAuthorModal('{{ page.author }}')">
-    <div class="author-visual">
-      {% if author.avatar %}
-        <img src="{{ author.avatar }}" alt="{{ author.name }}">
-      {% else %}
-        <div style="width:100%; height:100%; background:var(--border-color);"></div>
-      {% endif %}
-    </div>
-
-    <div class="author-info">
-      <span class="author-label">Autor</span>
-      <h3 class="author-name">{{ author.name }}</h3>
-      <p class="author-bio">{{ author.bio | truncate: 140 }}</p>
-      <div class="author-cta">
-        <span>Ver perfil completo y más entradas</span>
-        <span class="arrow">→</span>
-      </div>
-    </div>
-  </div>
-
- <!-- SECCIÓN COMPARTIR REDES -->
-  <div class="share-section">
-    <span class="share-label">¿Te gustó esta entrada? Compártela.</span>
+  <!-- SIDEBAR (Desde newspaper.html) -->
+  <aside class="blog-sidebar">
     
-    <div class="share-buttons">
+    <!-- TEMAS RELACIONADOS -->
+    <div class="sidebar-section">
+      <div class="sidebar-header">Temas Relacionados</div>
       
-      <!-- 1. WhatsApp -->
- <a href="https://api.whatsapp.com/send?text={{ page.title | url_encode }}%20{{ page.url | absolute_url }}"
-   target="_blank"
-   rel="noopener"
-   class="share-btn"
-   aria-label="Compartir en WhatsApp">
+      {% assign max_related = 4 %}
+      {% assign min_common_tags = 1 %}
+      {% assign max_related_counter = 0 %}
 
-  <svg xmlns="http://www.w3.org/2000/svg"
-       viewBox="0 0 32 32"
-       width="24"
-       height="24"
-       fill="currentColor"
-       aria-hidden="true">
-    <path d="M16.003 3C9.383 3 4 8.383 4 15.003c0 2.646.873 5.092 2.35 7.062L4 29l7.145-2.3a11.94 11.94 0 0 0 4.858 1.01h.003C22.617 27.71 28 22.326 28 15.707 28 9.087 22.617 3 16.003 3zm0 21.9a9.85 9.85 0 0 1-4.997-1.36l-.358-.213-4.238 1.366 1.39-4.126-.232-.368a9.83 9.83 0 0 1-1.516-5.196c0-5.433 4.42-9.852 9.951-9.852 2.636 0 5.113 1.026 6.976 2.889a9.8 9.8 0 0 1 2.875 6.967c0 5.434-4.42 9.853-9.851 9.853zm5.544-7.41c-.3-.15-1.777-.876-2.053-.977-.276-.1-.477-.15-.676.15-.2.3-.78.977-.957 1.177-.176.2-.353.226-.653.076-.3-.15-1.268-.47-2.414-1.49-.893-.797-1.497-1.781-1.672-2.08-.176-.3-.019-.463.132-.612.135-.134.3-.35.45-.525.15-.176.2-.3.3-.5.1-.2.05-.375-.026-.525-.076-.15-.676-1.626-.926-2.228-.245-.585-.493-.505-.676-.516-.175-.008-.375-.01-.576-.01-.2 0-.525.076-.8.375-.275.3-1.05 1.026-1.05 2.502 0 1.476 1.076 2.918 1.226 3.118.15.2 2.12 3.237 5.137 4.537.718.31 1.278.495 1.712.633.72.23 1.377.198 1.893.12.58-.086 1.777-.726 2.03-1.428.253-.702.253-1.304.176-1.428-.076-.125-.276-.2-.576-.35z"/>
-  </svg>
-</a>
+      {% for post in site.posts %}
+        {% unless post.url == page.url %}
+          {% assign same_tag_count = 0 %}
+          {% for tag in post.tags %}
+            {% if page.tags contains tag %}
+              {% assign same_tag_count = same_tag_count | plus: 1 %}
+            {% endif %}
+          {% endfor %}
 
+          {% if same_tag_count >= min_common_tags %}
+            <div class="sidebar-item">
+              <span class="sidebar-topic-label">{{ post.tags[0] }}</span>
+              <h4 class="sidebar-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+            </div>
+            {% assign max_related_counter = max_related_counter | plus: 1 %}
+            {% if max_related_counter >= max_related %}{% break %}{% endif %}
+          {% endif %}
+        {% endunless %}
+      {% endfor %}
 
-      <!-- 2. Facebook -->
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url }}" target="_blank" class="share-btn" aria-label="Compartir en Facebook">
-        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-      </a>
-
-      <!-- 3. Twitter / X -->
-      <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url }}" target="_blank" class="share-btn" aria-label="Compartir en X">
-        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      
-      <!-- 4. Email -->
-      <a href="mailto:?subject=Lectura recomendada: {{ page.title | url_encode }}&body=Hola, te comparto este artículo de Cristhian Moreno que me pareció interesante: {{ page.url | absolute_url }}" class="share-btn" aria-label="Enviar por Correo">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </a>
-
-      <!-- 5. Copiar Enlace (Para Instagram) -->
-      <button id="copy-link-btn" class="share-btn" aria-label="Copiar Enlace" onclick="copyToClipboard('{{ page.url | absolute_url }}')">
-        <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-        <span class="share-tooltip">¡Enlace copiado!</span>
-      </button>
-
-      <!-- 6. Botón Nativo (Solo Móvil) -->
-      <button id="native-share-btn" class="share-btn" aria-label="Compartir (Más opciones)">
-        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-      </button>
-
+      {% if max_related_counter == 0 %}
+        <p style="font-size:0.85rem; color:grey; font-style:italic;">No hay artículos relacionados.</p>
+      {% endif %}
     </div>
-  </div>
 
-  <!-- DISCUSIÓN -->
-  {% if page.discusion %}
-  <section class="comments-section">
-    <h3 class="comments-title">Discusión</h3>
-    <p class="post-lead">Para entrar en la discusión, tienes que crear una cuenta en <a style="color: var(--green-h)" href="https://github.com/signup" target="_blank">Github</a>, o sino, puedes enviar un correo a crdmcx@gmail.com</p>
-    <div class="giscus"></div>
-  </section>
+    <!-- LO MÁS RECIENTE -->
+    <div class="sidebar-section">
+      <div class="sidebar-header">Lo más reciente</div>
+      {% assign recent_posts = site.posts | limit: 5 %}
+      {% for post in recent_posts %}
+         <div class="sidebar-item">
+           <h4 class="sidebar-title"><a href="{{ post.url }}">{{ post.title }}</a></h4>
+           <span class="sidebar-date">{{ post.date | date: "%d %b" }}</span>
+         </div>
+      {% endfor %}
+    </div>
 
+    <!-- ARCHIVO / CATEGORÍAS -->
+    <div class="sidebar-section">
+      <div class="sidebar-header">Categorías</div>
+      {% assign categories = site.categories | sort %}
+      {% for category in categories limit:6 %}
+        <div class="sidebar-item">
+          <h4 class="sidebar-title">
+            <a href="/{{ category[0] | slugify }}">{{ category[0] }}</a>
+          </h4>
+          <span class="sidebar-date">{{ category[1] | size }} artículos</span>
+        </div>
+      {% endfor %}
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- SCRIPT DE CONEXIÓN CON BUSCADOR -->
+<script>
+  function triggerSearch(term) {
+    const searchInput = document.getElementById('search-input');
+    if(searchInput) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      setTimeout(() => {
+        searchInput.value = term;
+        searchInput.focus();
+        const event = new Event('input', { bubbles: true });
+        searchInput.dispatchEvent(event);
+      }, 500);
+    }
+  }
+
+  // Script de Compartir
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-link-btn');
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 2000);
+    });
+  }
+
+  // Lógica Compartir Nativo (Mobile)
+  const nativeBtn = document.getElementById('native-share-btn');
+  if (navigator.share) {
+    nativeBtn.style.display = 'flex';
+    nativeBtn.addEventListener('click', () => {
+      navigator.share({
+        title: '{{ page.title | escape }}',
+        text: 'Te comparto este artículo interesante de Cristhian Moreno',
+        url: '{{ page.url | absolute_url }}'
+      }).catch(console.error);
+    });
+  } else {
+    nativeBtn.style.display = 'none';
+  }
+</script>
+
+{% if page.discusion %}
 <script src="https://giscus.app/client.js"
         data-repo="cristhiandmoreno/comentariosblog"
         data-repo-id="R_kgDOKXXXX"
@@ -171,86 +516,36 @@ layout: default
         crossorigin="anonymous"
         async>
 </script>
-  <script>
-    function updateGiscusTheme() {
-      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (!iframe) return;
-      iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
-    }
-    const observer = new MutationObserver(updateGiscusTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  </script>
-  {% endif %}
 
-</article>
-
-<!-- SCRIPT DE CONEXIÓN (POST -> BUSCADOR) -->
 <script>
-  // Esta función toma el tag, sube al header, lo escribe y dispara el evento 'input'
-  function triggerSearch(term) {
-    const searchInput = document.getElementById('search-input');
-    if(searchInput) {
-      // 1. Scroll suave hacia arriba para ver el buscador
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      // 2. Esperar un momento a que llegue arriba y llenar el buscador
-      setTimeout(() => {
-        searchInput.value = term;
-        searchInput.focus();
-        // 3. Disparar manualmente el evento de búsqueda
-        const event = new Event('input', { bubbles: true });
-        searchInput.dispatchEvent(event);
-      }, 500);
-    }
+  function updateGiscusTheme() {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
   }
-
-
-  // Script de Compartir
-
-   // 1. Lógica Copiar Enlace
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('copy-link-btn');
-        btn.classList.add('copied');
-        setTimeout(() => btn.classList.remove('copied'), 2000); // Quitar tooltip a los 2s
-      });
-    }
-
-    // 2. Lógica Compartir Nativo (Mobile)
-    const nativeBtn = document.getElementById('native-share-btn');
-    if (navigator.share) {
-      nativeBtn.style.display = 'flex'; // Mostrar solo si el navegador lo soporta
-      nativeBtn.addEventListener('click', () => {
-        navigator.share({
-          title: '{{ page.title | escape }}',
-          text: 'Te comparto este artículo interesante de Cristhian Moreno',
-          url: '{{ page.url | absolute_url }}'
-        }).catch(console.error);
-      });
-    } else {
-      nativeBtn.style.display = 'none'; // Ocultar en PC antiguos
-    }
+  const observer = new MutationObserver(updateGiscusTheme);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 </script>
+{% endif %}
 
 <!-- DATOS ESTRUCTURADOS -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "{{ page.schema_type | default: 'OpinionArticle' }}",
+  "@type": "{{ page.schema_type | default: 'BlogPosting' }}",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page.url | absolute_url }}"
   },
   "headline": "{{ page.title | escape }}",
-  "image": ["{{ page.image | absolute_url }}"],
+  "image": "{% if page.image %}{{ page.image | absolute_url }}{% endif %}",
   "datePublished": "{{ page.date | date_to_xmlschema }}",
   "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
   "author": {
     "@type": "Person",
     "name": "{{ author.name }}",
     "url": "{{author.web}}"
-
   },
   "publisher": {
     "@type": "Organization",
@@ -261,7 +556,7 @@ layout: default
     }
   },
   "description": "{{ page.description | strip_html | escape }}",
-  "articleSection": "{{ page.tags | first }}",
+  "articleSection": "{{ page.categories | first }}",
   "keywords": "{{ page.tags | join: ', ' }}",
   "wordCount": "{{ page.content | number_of_words }}",
   "inLanguage": "es-CO",
