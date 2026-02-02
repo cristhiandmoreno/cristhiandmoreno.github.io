@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   
-    Sobre Nosotros y cómo pertenecer | El Inconforme, por Cristhian moreno 
+    Sobre El Inconforme | El Inconforme, por Cristhian moreno 
   
 </title>
 
@@ -13,9 +13,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Sobre Nosotros y cómo pertenecer | Cristhian Moreno</title>
+<title>Sobre El Inconforme | Cristhian Moreno</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="Sobre Nosotros y cómo pertenecer" />
+<meta property="og:title" content="Sobre El Inconforme" />
 <meta name="author" content="Cristhian Moreno" />
 <meta property="og:locale" content="es" />
 <meta name="description" content="Estudiante de Derecho, Representante Estudiantil y Blog Político." />
@@ -25,9 +25,9 @@
 <meta property="og:site_name" content="Cristhian Moreno" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Sobre Nosotros y cómo pertenecer" />
+<meta property="twitter:title" content="Sobre El Inconforme" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Cristhian Moreno"},"description":"Estudiante de Derecho, Representante Estudiantil y Blog Político.","headline":"Sobre Nosotros y cómo pertenecer","url":"http://localhost:4000/el-inconforme/about"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Cristhian Moreno"},"description":"Estudiante de Derecho, Representante Estudiantil y Blog Político.","headline":"Sobre El Inconforme","url":"http://localhost:4000/el-inconforme/about"}</script>
 <!-- End Jekyll SEO tag -->
 
   <script data-goatcounter="https://cristhiandmoreno.goatcounter.com/count"
@@ -86,12 +86,238 @@
 
   <!-- CONTENIDO DINÁMICO -->
   <main>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <style>
+	
+	/* --- ESTILOS ESPECÍFICOS PARA EL ABOUT INCONFORME --- */
+
+.about-inconforme {
+  .about-header {
+    text-align: center;
+    padding: 60px 0;
+    max-width: 800px;
+    margin: 0 auto;
+
+    .manifesto-title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1;
+      margin: 20px 0;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    .manifesto-lead {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: grey;
+      line-height: 1.4;
+    }
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    padding: 40px 0;
+  }
+
+  .section-brand-title {
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--green-h);
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  /* Caja de la Constitución */
+  .constitution-box {
+    background: var(--bg-alt);
+    padding: 50px;
+    border: 1px solid var(--border-color);
+    margin: 40px 0;
+
+    .constitution-header {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .constitution-rules {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .rule-item {
+      h3 {
+        font-size: 1.2rem;
+        color: var(--green-h);
+        margin-bottom: 10px;
+      }
+      p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+    }
+
+    .constitution-footer {
+      margin-top: 40px;
+      text-align: center;
+      border-top: 1px dotted var(--border-color);
+      padding-top: 20px;
+    }
+  }
+
+  /* Sección de Colaboración */
+  .submission-section {
+    padding: 60px 0;
+
+    .submission-card {
+      border: 3px solid var(--border-color);
+      padding: 40px;
+      background: var(--bg-color);
+      box-shadow: 15px 15px 0px var(--green-h);
+    }
+
+    .submission-title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 30px;
+
+      li {
+        margin-bottom: 25px;
+        position: relative;
+        padding-left: 60px;
+        font-size: 1.1rem;
+        line-height: 1.4;
+
+        .step-num {
+          position: absolute;
+          left: 0;
+          top: 0;
+          font-weight: 900;
+          font-size: 1.5rem;
+          color: var(--green-h);
+          font-family: var(--font-main);
+        }
+      }
+    }
+  }
+
+  .green-link {
+    color: var(--green-h);
+    font-weight: bold;
+    text-decoration: underline;
+    &:hover { color: var(--text-color); }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-inconforme {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-header .manifesto-title { font-size: 2.5rem; }
+    .constitution-box { padding: 25px; }
+    .submission-card { padding: 20px; box-shadow: 8px 8px 0px var(--green-h); }
+  }
+}
+</style>
+
+<div class="paper-container about-inconforme">
+  <!-- Cabecera de Manifiesto -->
+  <header class="about-header">
+    <span class="paper-cat-label">Nuestra Identidad</span>
+    <h1 class="manifesto-title">No nos conformamos con la respuesta obvia.</h1>
+    <p class="manifesto-lead">
+      El Inconforme no es solo una sección de opinión; es un ecosistema de pensamiento crítico diseñado para quienes cuestionan el manejo del poder, los recursos y la narrativa oficial.
+    </p>
+  </header>
+
+  <div class="paper-divider-double"></div>
+
+  <!-- Sección: Los Pilares (Propósito y Tono) -->
+  <section class="about-grid">
+    <div class="about-column">
+      <h2 class="section-brand-title">El Propósito</h2>
+      <p>
+        Nacemos para promover un pensamiento <strong>propio, transparente, debatible y antidogmático</strong>. Buscamos propiciar el debate sobre temas políticos, sociales, económicos, ambientales y culturales que definen nuestra realidad nacional y regional. 
+      </p>
+      <p>
+        Este espacio es para los curiosos, los que dudan de la teoría política tradicional y los que exigen rigurosidad en medio del ruido digital.
+      </p>
+    </div>
+
+    <div class="about-column">
+      <h2 class="section-brand-title">El Tono</h2>
+      <p>
+        Creemos en un lenguaje <strong>accesible y natural</strong>. No renunciamos a la rigurosidad académica, pero abrazamos la ironía, el sarcasmo y la narrativa literaria como herramientas legítimas de análisis.
+      </p>
+      <p>
+        Aquí, el columnista compromete exclusivamente su opinión. Respetamos la dignidad humana, pero no tememos incomodar al poder.
+      </p>
+    </div>
+  </section>
+
+  <div class="paper-divider-single"></div>
+
+  <!-- Sección: La Constitución (Ética y Política) -->
+  <section class="constitution-box">
+    <h2 class="constitution-header">La Constitución de El Inconforme</h2>
+    <div class="constitution-rules">
+      <div class="rule-item">
+        <h3>Ética e Integridad</h3>
+        <p>El columnista es libre en su juicio, pero tiene prohibido falsear datos, citas o hechos. Cada afirmación debe ser verificable y las fuentes deben ser citadas. No somos un espacio para la desinformación.</p>
+      </div>
+      <div class="rule-item">
+        <h3>Conflicto de Intereses</h3>
+        <p>La transparencia es innegociable. Si el tema tratado vincula directamente al autor de forma económica, laboral o familiar, deberá manifestarlo en el texto. No permitimos proselitismo encubierto.</p>
+      </div>
+      <div class="rule-item">
+        <h3>Propiedad y Responsabilidad</h3>
+        <p>El autor conserva su propiedad intelectual, otorgando a <em>cristhianmoreno.com</em> licencia para su difusión. El autor asume la responsabilidad legal total de sus afirmaciones.</p>
+      </div>
+    </div>
+    <div class="constitution-footer">
+      <p><em>* Escribir en El Inconforme implica la aceptación total de esta Constitución.</em></p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: CÓMO PERTENECER -->
+  <section id="colaborar" class="submission-section">
+    <div class="submission-card">
+      <div class="submission-content">
+        <h2 class="submission-title">¿Quieres ser una voz inconforme?</h2>
+        <p>Buscamos columnistas que no tengan miedo de proponer tesis fundamentadas. Si tienes algo que decir, sigue estos pasos:</p>
+        
+        <ul class="steps-list">
+          <li>
+            <span class="step-num">01</span>
+            <strong>Pre-propuesta:</strong> Envía un correo a <a href="mailto:hola@cristhianmoreno.com" class="green-link">hola@cristhianmoreno.com</a> con el asunto "Propuesta Columna - [Tu Nombre]" detallando el tema y tu enfoque en menos de 200 palabras.
+          </li>
+          <li>
+            <span class="step-num">02</span>
+            <strong>Redacción:</strong> Si la propuesta es aceptada, el texto debe tener entre 600 y 1,000 palabras, en formato Word o Google Docs, con las fuentes debidamente enlazadas.
+          </li>
+          <li>
+            <span class="step-num">03</span>
+            <strong>Perfil:</strong> Adjunta una breve biografía (2-3 líneas), una foto en alta resolución (preferiblemente en blanco y negro) y tus redes sociales.
+          </li>
+          <li>
+            <span class="step-num">04</span>
+            <strong>Revisión:</strong> Nuestro equipo realizará una revisión de estilo y coherencia técnica antes de la publicación definitiva.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
   </main>
 
   <footer>

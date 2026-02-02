@@ -2043,3 +2043,26 @@ a.main-article:hover {
     display: none; /* Desactivar hover overlay en móvil para priorizar click */
   }
 }
+
+/* FIX títulos cortados en pantallas muy delgadas */
+@media (max-width: 420px) {
+  .main-article h1 {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+    line-height: 1.15;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .main-article {
+    justify-content: flex-start; /* evita centrado vertical */
+  }
+  /* FIX título columna (letra cortada) */
+.inconforme-title,
+.columna-title,
+.column-title {
+  line-height: 1.15;      /* un poco más de aire */
+  overflow: visible;      /* CLAVE */
+  padding-bottom: 0.05em; /* evita corte de descendentes */
+}
+
+}

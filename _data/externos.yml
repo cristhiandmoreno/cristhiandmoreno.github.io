@@ -1,15 +1,7 @@
-- title: "La crisis de la institucionalidad en América Latina"
-  date: 2025-12-01
-  source: "Diario El Espectador"
-  image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=400"
-  iframe_url: "https://www.elespectador.com/"
-  excerpt: "Un análisis detallado sobre cómo los movimientos sociales están redefiniendo las constituciones modernas en la región..."
-  type: "Externo"
-
-- title: "Justicia restaurativa: un camino necesario"
-  date: 2025-11-15
-  source: "Revista Semana"
-  image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=400"
-  iframe_url: "https://www.semana.com/"
-  excerpt: "La implementación de modelos alternativos de justicia podría ser la clave para descongestionar el sistema judicial colombiano."
-  type: "Externo"
+#- title: "La crisis de la institucionalidad en América Latina"
+ # date: 2025-12-01
+  #source: "Diario El Espectador"
+ # image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=400"
+  #iframe_url: "https://www.elespectador.com/"
+ # excerpt: "Un análisis detallado sobre cómo los movimientos sociales están redefiniendo las constituciones modernas en la región..."
+#  type: "Externo"
