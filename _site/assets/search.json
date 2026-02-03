@@ -10,6 +10,24 @@
     },
   
     {
+      "title"    : "El problema de la libertad de desición en la sociedad civil liberal",
+      "url"      : "/opini%C3%B3n/libertad-y-estado/",
+      "category" : "Opinión",
+      "tags"     : "Tecnologia, Inteligencia Artificial",
+      "date"     : "27/12/2025",
+      "excerpt"  : "Lo invito a que no piense en un elefante verde."
+    },
+  
+    {
+      "title"    : "Reglamento univalle: Lo que necesitas para sobrevivir como estudiante con acuerdo 009 de 1997 de la Universidad del Vale",
+      "url"      : "/opini%C3%B3n/reglamento-estudiantil-univalle/",
+      "category" : "Opinión",
+      "tags"     : "Acta fundacional, univalle",
+      "date"     : "26/12/2025",
+      "excerpt"  : "La Universidad del Valle además de ser la universidad más importante del suroccidente colombiano, tiene un reglamento garantista que de..."
+    },
+  
+    {
       "title"    : "Escribir para la máquina: detectores de IA e indefensión estudiantil",
       "url"      : "/el-inconforme/la-ia-en-la-academia/",
       "category" : "El Inconforme, Opinión",

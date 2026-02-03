@@ -191,7 +191,7 @@ permalink: /about/
     <div class="article-body">
       <!-- Párrafo con Letra Capital -->
       <p class="drop-cap">
-        “Al artista le dicen méndigo, y al bandido le dicen firma”. Se lo escuché a un rapero en el mío de Cali. Y eso funciona muy bien en nuestra sociedad: nos importa más quién dice las cosas que qué es lo que se está diciendo.
+        “Al artista le dicen méndigo, y al bandido le dicen firma”. Se lo escuché a un rapero en el MIO de Cali. Y eso funciona muy bien en nuestra sociedad: nos importa más quién dice las cosas que qué es lo que se está diciendo.
       </p>
       
       <p>
@@ -227,7 +227,7 @@ permalink: /about/
       <!-- Footer / CTA -->
       <div class="cta-box">
         <p style="margin-bottom: 15px; font-size: 0.9rem; font-style: italic;">¿Interesado en el perfil profesional completo?</p>
-        <a href="#" class="cta-btn">
+        <a href="/cv" class="cta-btn">
           Descargar Curriculum Vitae
         </a>
       </div>
