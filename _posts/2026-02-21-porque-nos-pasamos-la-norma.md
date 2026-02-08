@@ -2,7 +2,7 @@
 layout: post
 title: "¿Por qué nos pasamos la norma por la galleta?"
 author: cristhian  # Esto debe coincidir con el ID en _data/authors.yml
-categories: [Opinión]
+categories: [Opinion]
 portada: true
 tags: ["Etica", "Participación ciudadana", "Cultura Ciudadana"] # Etiquetas secundarias
 description: "Una reflexión sobre el estilo y la facilidad con la que se puede romper la ley en Colombia"

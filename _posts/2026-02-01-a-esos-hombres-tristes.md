@@ -2,7 +2,7 @@
 layout: post
 title: "A esos hombres tristes incoherentes"
 author: cristhian  # Esto debe coincidir con el ID en _data/authors.yml
-categories: [Opinión]
+categories: [Opinion]
 portada: true
 tags: ["Etica", "Reflexion"] # Etiquetas secundarias
 description: "Un escrito sobre la coherencia"

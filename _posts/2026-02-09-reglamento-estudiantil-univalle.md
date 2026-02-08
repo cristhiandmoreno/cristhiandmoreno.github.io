@@ -2,7 +2,7 @@
 layout: post
 title: "Reglamento univalle: Lo que necesitas para sobrevivir como estudiante al acuerdo 009 de 1997 de la Universidad del Valle"
 author: cristhian # Esto debe coincidir con el ID en _data/authors.yml
-categories: [Opinión]
+categories: [Opinion]
 portada: false
 tags: [Acta fundacional, univalle] # Etiquetas secundarias
 description: "Vistazo al acuerdo 009 de 1997 de la Universidad del Valle que expide el Reglamento Estudiantil de Univalle"
