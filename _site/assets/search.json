@@ -1,9 +1,36 @@
 [
   
     {
+      "title"    : "Igual de diferentes",
+      "url"      : "/opinion/igual-de-diferentes/",
+      "category" : "Opinion",
+      "tags"     : "Acta fundacional",
+      "date"     : "01/03/2026",
+      "excerpt"  : "Entre pancartas, discursos y lecturas, estas dos semanas me han dejado reflexiones agridulces. Puede que la idea de pensar por..."
+    },
+  
+    {
+      "title"    : "¿Por qué nos pasamos la norma por la galleta?",
+      "url"      : "/opinion/porque-nos-pasamos-la-norma/",
+      "category" : "Opinion",
+      "tags"     : "Etica, Participación ciudadana, Cultura Ciudadana",
+      "date"     : "21/02/2026",
+      "excerpt"  : "Desde siempre. y como de costumbre, ayer crucé la acera sin mirar a ningún lado. Esa desición la he tomado..."
+    },
+  
+    {
+      "title"    : "Reglamento univalle: Lo que necesitas para sobrevivir como estudiante al acuerdo 009 de 1997 de la Universidad del Valle",
+      "url"      : "/opinion/reglamento-estudiantil-univalle/",
+      "category" : "Opinion",
+      "tags"     : "Acta fundacional, univalle",
+      "date"     : "09/02/2026",
+      "excerpt"  : "La Universidad del Valle además de ser la universidad más importante del suroccidente colombiano, tiene un reglamento garantista que de..."
+    },
+  
+    {
       "title"    : "A esos hombres tristes incoherentes",
-      "url"      : "/opini%C3%B3n/a-esos-hombres-tristes/",
-      "category" : "Opinión",
+      "url"      : "/opinion/a-esos-hombres-tristes/",
+      "category" : "Opinion",
       "tags"     : "Etica, Reflexion",
       "date"     : "01/02/2026",
       "excerpt"  : "Si hiciera falta alguna vez una frase que describiera a esos hombres tristes que pretenden cambiar al mundo, unerreichbar nah..."
@@ -20,8 +47,8 @@
   
     {
       "title"    : "Un breve prolegómeno",
-      "url"      : "/opini%C3%B3n/un-breve-prolegomeno/",
-      "category" : "Opinión",
+      "url"      : "/opinion/un-breve-prolegomeno/",
+      "category" : "Opinion",
       "tags"     : "Acta fundacional",
       "date"     : "30/11/2025",
       "excerpt"  : "Cuando pensé este proyecto, hace unos 10 meses, no contaba con todo el cambio de perspectivas e ideas que podían..."
