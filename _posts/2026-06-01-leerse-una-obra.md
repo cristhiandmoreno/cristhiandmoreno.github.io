@@ -1,4 +1,4 @@
-```
+---
 layout: post
 title: "Leerse una obra completa es un acto de resistencia"
 author: cristhian # Esto debe coincidir con el ID en _data/authors.yml
@@ -9,7 +9,7 @@ description: ""
 schema_type: OpinionArticle
 discusion: true # ESTO ACTIVA LOS COMENTARIOS DE GISCUS
 alt: "Cristhian Moreno"
-```
+---
 
 Llega la tarde-noche. Abro un capítulo de *La lógica de la acción colectiva*, y mientras leo entre líneas solo puedo pensar en quién escribió. No me refiero al autor, me refiero a si me llegó una notificación en el celular.
 
