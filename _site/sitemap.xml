@@ -25,6 +25,10 @@
 <lastmod>2026-03-23T00:00:00-05:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/opinion/leerse-una-obra/</loc>
+<lastmod>2026-06-01T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/el-inconforme/about</loc>
 </url>
 <url>
@@ -41,6 +45,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/blog/page2/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/Propuesta%20trabajo%20.pdf</loc>
